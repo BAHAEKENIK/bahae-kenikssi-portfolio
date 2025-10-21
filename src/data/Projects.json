@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "title": "GetJob - Job Search Platform",
+    "description": "Full-stack web application from A to Z with Laravel and React. Implementation of a secure RESTful API with Laravel Sanctum, real-time chat system and notifications with Laravel Reverb, admin panel with data visualization (Chart.js).",
+    "image": "getjob-project.png",
+    "technologies": ["Laravel 10", "React 18", "MySQL", "Bootstrap 5", "Chart.js", "Laravel Sanctum", "Laravel Reverb"],
+    "githubUrl": "https://github.com/BAHAEKENIK/get-job-platform",
+    "liveUrl": "https://get-job-plateform.netlify.app/",
+    "tags": ["laravel", "react", "fullstack"],
+    "features": ["Real-time chat", "Job search", "Admin dashboard", "RESTful API"]
+  },
+  {
+    "id": 2,
+    "title": "Weather App",
+    "description": "Weather application developed with React.js and styled-components. Integration of the OpenWeatherMap API to display real-time data, city search with error management and weather icons display, dynamic interface with conditional gradient backgrounds according to temperature.",
+    "image": "weatherapp-project.png",
+    "technologies": ["React", "Styled Components", "OpenWeather API", "JavaScript"],
+    "githubUrl": "https://github.com/BAHAEKENIK/WeatherApp",
+    "liveUrl": "#",
+    "tags": ["react"],
+    "features": ["Real-time data", "City search", "Dynamic backgrounds", "Error handling"]
+  },
+  {
+    "id": 3,
+    "title": "Order Service with Laravel",
+    "description": "Interactive web application connecting customers and service providers with service management, requests, roles and messaging.",
+    "image": "order-service-project.png",
+    "technologies": ["Laravel", "MySQL", "Bootstrap", "JavaScript"],
+    "githubUrl": "https://github.com/BAHAEKENIK/order_service",
+    "liveUrl": "",
+    "tags": ["laravel", "fullstack"],
+    "features": ["Service management", "Customer-provider connection", "Messaging system", "Role management"]
+  },
+  {
+    "id": 4,
+    "title": "Company Management System",
+    "description": "Interactive web application to manage employees and their time tracking, complaints, projects and company task tracking.",
+    "image": "gestion-entreprise-project.png",
+    "technologies": ["Laravel", "MySQL", "JavaScript", "Tailwind CSS"],
+    "githubUrl": "https://github.com/BAHAEKENIK/gestion_entreprise",
+    "liveUrl": "#",
+    "tags": ["laravel", "fullstack"],
+    "features": ["Employee management", "Time tracking", "Project management", "Task tracking"]
+  }
+]

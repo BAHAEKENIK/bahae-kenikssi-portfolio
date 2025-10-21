@@ -1,0 +1,118 @@
+{
+  "frontend": [
+    {
+      "name": "React",
+      "level": 85,
+      "color": "#61DAFB",
+      "icon": "react"
+    },
+    {
+      "name": "JavaScript",
+      "level": 90,
+      "color": "#F7DF1E",
+      "icon": "javascript"
+    },
+    {
+      "name": "HTML/CSS",
+      "level": 95,
+      "color": "#E34F26",
+      "icon": "html"
+    },
+    {
+      "name": "Tailwind CSS",
+      "level": 80,
+      "color": "#06B6D4",
+      "icon": "tailwind"
+    },
+    {
+      "name": "Bootstrap",
+      "level": 85,
+      "color": "#7952B3",
+      "icon": "bootstrap"
+    }
+  ],
+  "backend": [
+    {
+      "name": "Laravel",
+      "level": 88,
+      "color": "#FF2D20",
+      "icon": "laravel"
+    },
+    {
+      "name": "PHP",
+      "level": 85,
+      "color": "#777BB4",
+      "icon": "php"
+    },
+    {
+      "name": "Node.js",
+      "level": 75,
+      "color": "#339933",
+      "icon": "nodejs"
+    },
+    {
+      "name": "Express.js",
+      "level": 70,
+      "color": "#000000",
+      "icon": "express"
+    },
+    {
+      "name": "RESTful APIs",
+      "level": 85,
+      "color": "#2563EB",
+      "icon": "api"
+    }
+  ],
+  "database": [
+    {
+      "name": "MySQL",
+      "level": 85,
+      "color": "#4479A1",
+      "icon": "mysql"
+    },
+    {
+      "name": "MongoDB",
+      "level": 70,
+      "color": "#47A248",
+      "icon": "mongodb"
+    },
+    {
+      "name": "Eloquent ORM",
+      "level": 80,
+      "color": "#FF2D20",
+      "icon": "laravel"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Git",
+      "level": 90,
+      "color": "#F05032",
+      "icon": "git"
+    },
+    {
+      "name": "Docker",
+      "level": 65,
+      "color": "#2496ED",
+      "icon": "docker"
+    },
+    {
+      "name": "VS Code",
+      "level": 95,
+      "color": "#007ACC",
+      "icon": "vscode"
+    },
+    {
+      "name": "Jira",
+      "level": 75,
+      "color": "#0052CC",
+      "icon": "jira"
+    },
+    {
+      "name": "Framer Motion",
+      "level": 80,
+      "color": "#FF69B4",
+      "icon": "framer"
+    }
+  ]
+}

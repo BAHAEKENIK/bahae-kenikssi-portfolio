@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "experience": "Expérience",
+    "projects": "Projets",
+    "skills": "Compétences",
+    "certificates": "Certificats",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Bonjour, je suis",
+    "name": "Bahae Kenikssi",
+    "title": "Développeur Full Stack",
+    "description": "Passionné par le développement web, je me forme chaque jour pour améliorer mes compétences. Curieux, autonome et déterminé, j'aime apprendre en pratiquant et relever des défis pour progresser dans le développement d'applications web.",
+    "downloadCv": "Télécharger CV",
+    "contactMe": "Contactez Moi"
+  },
+  "about": {
+    "title": "À Propos",
+    "description": "Je suis un Développeur Full Stack spécialisé dans les technologies web modernes. Avec une solide base en développement front-end et back-end, je crée des applications efficaces, évolutives et conviviales.",
+    "experience": "Mois d'Expérience",
+    "projects": "Projets Réalisés",
+    "technologies": "Technologies Maîtrisées",
+    "education": {
+      "title": "Éducation",
+      "degree": "Diplôme de Technicien Spécialisé en Développement Digital",
+      "school": "Institut spécialisé dans les métiers de l'offshoring, Tétouan",
+      "period": "Septembre 2023 - Juin 2025",
+      "baccalaureate": {
+        "title": "Baccalauréat Scientifique",
+        "school": "Lycée Ibn Roched - Asjen Ouezzane",
+        "description": "Option Physique option français"
+      }
+    }
+  },
+  "experience": {
+    "title": "Expérience",
+    "internship": {
+      "title": "Stagiaire Développeur Web Full Stack",
+      "company": "Union IT Service - Casablanca",
+      "period": "Mai 2025 - Juin 2025",
+      "responsibilities": [
+        "Participation au développement d'un système de gestion interne pour entreprise (employés, tâches, pointage, réclamations)",
+        "Travail sur l'authentification sécurisée, la gestion des rôles, l'import/export de données, et un tableau de bord dynamique",
+        "Utilisation de Laravel, PHP, Architecture MVC, Conception d'API RESTful",
+        "Développement Front-end avec Blade, Tailwind CSS, Alpine.js, JavaScript"
+      ]
+    }
+  },
+  "projects": {
+    "title": "Mes Projets",
+    "viewProject": "Voir le Projet",
+    "viewCode": "Voir le Code",
+    "items": {
+      "getjob": {
+        "title": "GetJob - Plateforme de Recherche d'Emploi",
+        "description": "Application web full-stack de A à Z avec Laravel et React. Mise en place d'une API RESTful sécurisée avec Laravel Sanctum, système de chat en temps réel et notifications avec Laravel Reverb, panel d'administration avec visualisation de données (Chart.js).",
+        "technologies": ["Laravel 10", "React 18", "MySQL", "Bootstrap 5"]
+      },
+      "weatherapp": {
+        "title": "Application Météo",
+        "description": "Application météo développée avec React.js et styled-components. Intégration de l'API OpenWeatherMap pour afficher les données en temps réel, recherche par ville avec gestion des erreurs et affichage d'icônes météo, interface dynamique avec fonds dégradés conditionnels selon la température.",
+        "technologies": ["React", "Styled Components", "API OpenWeather"]
+      },
+      "orderservice": {
+        "title": "Service de Commande avec Laravel",
+        "description": "Application web interactive de mise en relation clients-prestataires avec gestion des services, des demandes, des rôles et messagerie.",
+        "technologies": ["Laravel", "MySQL", "Bootstrap"]
+      },
+      "gestionentreprise": {
+        "title": "Gestion d'Entreprise",
+        "description": "Application web interactive permettant de gérer les employés et leur pointage, les réclamations, les projets et le suivi des tâches d'entreprise.",
+        "technologies": ["Laravel", "MySQL", "JavaScript"]
+      }
+    }
+  },
+  "skills": {
+    "title": "Compétences & Technologies",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "database": "Base de Données",
+    "tools": "Outils"
+  },
+  "certificates": {
+    "title": "Mes Certificats",
+    "items": {
+      "react": {
+        "title": "React de A à Z (Hooks, Redux, Contexte inclus)",
+        "issuer": "Udemy",
+        "date": "Mars 2025"
+      },
+      "sql": {
+        "title": "Certificat d'Achèvement SQL",
+        "issuer": "365 Data Science",
+        "date": "Novembre 2024"
+      },
+      "javascript": {
+        "title": "Algorithmes et Structures de Données JavaScript",
+        "issuer": "freeCodeCamp",
+        "date": "Octobre 2024"
+      },
+      "webdesign": {
+        "title": "Web Design Responsive",
+        "issuer": "freeCodeCamp",
+        "date": "Octobre 2023"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contactez-Moi",
+    "subtitle": "Je suis toujours intéressé par de nouvelles opportunités et collaborations.",
+    "name": "Votre Nom",
+    "email": "Votre Email",
+    "message": "Votre Message",
+    "send": "Envoyer le Message",
+    "sending": "Envoi en cours...",
+    "success": "Message envoyé avec succès !",
+    "error": "Erreur lors de l'envoi du message. Veuillez réessayer."
+  },
+  "footer": {
+    "copyright": "© 2025 Bahae Kenikssi. Tous droits réservés.",
+    "madeWith": ""
+  }
+}
