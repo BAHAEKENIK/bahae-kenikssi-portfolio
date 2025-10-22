@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "name": "bahae-kenikssi-portfolio",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/dist/$1"
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "functions": {
+    "app/api/**/*.js": {
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "github": {
+    "silent": true
+  }
+}

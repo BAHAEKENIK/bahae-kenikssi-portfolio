@@ -10,5 +10,4 @@ node_modules/
 /.vscode
 /coverage
 *.log
-/netlify/functions
-/.netlify
+/.vercel
