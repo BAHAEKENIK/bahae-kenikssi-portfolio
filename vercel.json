@@ -1,15 +1,9 @@
 {
   "version": 2,
   "name": "bahae-kenikssi-portfolio",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
   "routes": [
     {
       "src": "/(.*)",
@@ -18,7 +12,6 @@
   ],
   "cleanUrls": true,
   "trailingSlash": false,
-  "outputDirectory": "dist",
   "framework": "vite",
   "functions": {
     "app/api/**/*.js": {
