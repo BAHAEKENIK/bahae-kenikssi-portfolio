@@ -11,8 +11,8 @@ export default defineConfig({
   server: {
     port: 3000
   },
-  // Netlify specific configuration
-  base: './',
+  // Important for Netlify deployment
+  base: '/',
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion']
   }
