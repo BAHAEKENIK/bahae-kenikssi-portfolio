@@ -6,14 +6,18 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'esbuild'
+    minify: 'esbuild',
+    target: 'es2020'
   },
   server: {
     port: 3000
   },
-  // Important for Netlify deployment
-  base: '/',
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion']
+    include: ['react', 'react-dom', 'framer-motion', 'gsap']
   }
 })
