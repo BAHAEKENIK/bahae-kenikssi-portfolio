@@ -285,7 +285,7 @@ const Contact = () => {
     {
       icon: <FiMail />,
       label: 'Email',
-      value: 'bahaekenikssi@email.com',
+      value: 'bahaekenik@email.com',
       link: 'mailto:bahaekenik@email.com'
     },
     {
