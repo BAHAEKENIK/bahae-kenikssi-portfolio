@@ -41,7 +41,7 @@ const experienceData=[
     "title": "Web Development Student",
     "company": "Institute Specialized in Offshore Professions",
     "location": "Tetouan, Morocco",
-    "period": "September 2023 - Present",
+    "period": "September 2023 - July 2025",
     "description": "Comprehensive full-stack web development training program focusing on modern technologies and best practices.",
     "responsibilities": [
       "Completed intensive training in front-end and back-end development",
