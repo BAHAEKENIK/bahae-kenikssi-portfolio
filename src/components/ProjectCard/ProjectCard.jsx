@@ -222,7 +222,7 @@ const ProjectCard = ({ project, index }) => {
     if (imageError) {
       return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMUUyOTNCIi8+CjxwYXRoIGQ9Ik0xMDAgODBDMTMzLjMzNyA4MCAxNjAgMTA2LjY2MyAxNjAgMTQwQzE2MCAxNzMuMzM3IDEzMy4zMzcgMjAwIDEwMCAyMDAiIHN0cm9rZT0iIzI1NjNFQiIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMjAiIGZpbGw9IiMyNTYzRUIiIG9wYWNpdHk9IjAuMyIvPgo8dGV4dCB4PSIyMDAiIHk9IjExMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNjQ3NDhCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Qcm9qZWN0IEltYWdlPC90ZXh0Pgo8L3N2Zz4K';
     }
-    return `/src/assets/images/projects/${project.image}`;
+    return `/assets/images/projects/${project.image}`;
   };
 
   return (

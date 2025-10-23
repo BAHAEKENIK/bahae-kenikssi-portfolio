@@ -34,17 +34,18 @@ function App() {
   useEffect(() => {
     // Preload critical images
     const preloadImages = async () => {
-      const imageUrls = [
-        '/src/assets/images/profile/profile.jpg',
-        '/src/assets/images/projects/getjob-project.png',
-        '/src/assets/images/projects/weatherapp-project.png',
-        '/src/assets/images/projects/order-service-project.png',
-        '/src/assets/images/projects/gestion-entreprise-project.png',
-        '/src/assets/images/certificates/react-certificate.png',
-        '/src/assets/images/certificates/sql-certificate.png',
-        '/src/assets/images/certificates/javascript-certificate.png',
-        '/src/assets/images/certificates/webdesign-certificate.png'
-      ];
+      // In the useEffect, update the imageUrls:
+    const imageUrls = [
+      '/assets/images/profile/profile.jpg',
+      '/assets/images/projects/getjob-project.png',
+      '/assets/images/projects/weatherapp-project.png',
+      '/assets/images/projects/order-service-project.png',
+      '/assets/images/projects/gestion-entreprise-project.png',
+      '/assets/images/certificates/react-certificate.png',
+      '/assets/images/certificates/sql-certificate.png',
+      '/assets/images/certificates/javascript-certificate.png',
+      '/assets/images/certificates/webdesign-certificate.png'
+    ];
 
       const preloadPromises = imageUrls.map((src) => {
         return new Promise((resolve, reject) => {

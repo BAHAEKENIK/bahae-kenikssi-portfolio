@@ -73,7 +73,7 @@ const ProfileImage = () => {
         )}
         {isIntersecting && (
           <ProfileImg 
-            src="/src/assets/images/profile/profile.jpg" 
+            src="/assets/images/profile/profile.jpg" 
             alt="Bahae Kenikssi"
             onLoad={handleImageLoad}
             onError={handleImageError}

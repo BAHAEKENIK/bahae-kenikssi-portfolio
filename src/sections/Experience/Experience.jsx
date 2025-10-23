@@ -2,9 +2,70 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
-import experienceData from '../../data/experience.json';
-import { FiCalendar, FiMapPin, FiExternalLink } from 'react-icons/fi';
 
+import { FiCalendar, FiMapPin, FiExternalLink } from 'react-icons/fi';
+const experienceData=[
+  {
+    "id": 1,
+    "title": "Full Stack Web Developer Intern",
+    "company": "Union IT Service",
+    "location": "Casablanca, Morocco",
+    "period": "May 2025 - June 2025",
+    "description": "Participated in the development of an internal management system for companies, working on both front-end and back-end development with modern web technologies.",
+    "responsibilities": [
+      "Developed and maintained internal management system for employee tracking and task management",
+      "Implemented secure authentication system with role-based access control",
+      "Created RESTful APIs for data management and integration",
+      "Developed responsive front-end interfaces using modern CSS frameworks",
+      "Worked on data import/export functionality and dynamic dashboard features",
+      "Collaborated with team members using Git version control"
+    ],
+    "technologies": [
+      "Laravel",
+      "PHP",
+      "MVC Architecture",
+      "RESTful API",
+      "MySQL",
+      "Blade",
+      "Tailwind CSS",
+      "Alpine.js",
+      "JavaScript",
+      "Git",
+      "Laravel Breeze",
+      "Spatie Permissions"
+    ],
+    "website": "https://uits.ma/"
+  },
+  {
+    "id": 2,
+    "title": "Web Development Student",
+    "company": "Institute Specialized in Offshore Professions",
+    "location": "Tetouan, Morocco",
+    "period": "September 2023 - Present",
+    "description": "Comprehensive full-stack web development training program focusing on modern technologies and best practices.",
+    "responsibilities": [
+      "Completed intensive training in front-end and back-end development",
+      "Developed multiple full-stack projects using Laravel and React",
+      "Learned database design and management with MySQL and MongoDB",
+      "Studied software architecture patterns and best practices",
+      "Gained experience in version control with Git and collaborative development"
+    ],
+    "technologies": [
+      "HTML/CSS",
+      "JavaScript",
+      "React",
+      "Laravel",
+      "PHP",
+      "MySQL",
+      "MongoDB",
+      "Git",
+      "Bootstrap",
+      "Tailwind CSS",
+      "RESTful APIs",
+      "UML"
+    ]
+  }
+]
 const ExperienceContainer = styled.section`
   min-height: 100vh;
   padding: 5rem 2rem;

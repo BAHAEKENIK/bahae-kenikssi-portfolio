@@ -2,10 +2,58 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
-import certificatesData from '../../data/certificates.json';
 import CertificateCard from '../../components/CertificateCard/CertificateCard';
 import { FiFilter, FiX } from 'react-icons/fi';
-
+const certificatesData=[
+  {
+    "id": 1,
+    "title": "React from A to Z (Hooks, Redux, Context included)",
+    "issuer": "Udemy",
+    "date": "March 2025",
+    "image": "react-certificate.png",
+    "description": "Comprehensive React course covering modern React development with Hooks, Redux for state management, Context API, and advanced React patterns.",
+    "tags": ["react", "javascript"],
+    "skills": ["React Hooks", "Redux", "Context API", "Component Lifecycle", "State Management"],
+    "credentialUrl": "https://www.udemy.com/certificate/UC-254633a7-c9d6-4c2c-b388-3c6023d86ca5/",
+    "duration": "40 hours"
+  },
+  {
+    "id": 2,
+    "title": "SQL Certificate of Completion",
+    "issuer": "365 Data Science",
+    "date": "November 2024",
+    "image": "sql-certificate.png",
+    "description": "Comprehensive SQL training covering database design, complex queries, joins, subqueries, and database optimization techniques.",
+    "tags": ["sql", "database"],
+    "skills": ["Database Design", "Complex Queries", "Joins", "Subqueries", "Query Optimization"],
+    "credentialUrl": "https://learn.365datascience.com/certificates/CC-CE3F787385/",
+    "duration": "30 hours"
+  },
+  {
+    "id": 3,
+    "title": "JavaScript Algorithms and Data Structures",
+    "issuer": "freeCodeCamp",
+    "date": "October 2024",
+    "image": "javascript-certificate.png",
+    "description": "Advanced JavaScript course focusing on algorithms, data structures, problem-solving patterns, and technical interview preparation.",
+    "tags": ["javascript", "algorithms"],
+    "skills": ["Algorithms", "Data Structures", "Problem Solving", "Big O Notation", "Technical Interviews"],
+    "credentialUrl": "https://www.freecodecamp.org/certification/fcca2ad2527-8738-46a5-b095-aafc3de476d1/javascript-algorithms-and-data-structures-v8",
+    "duration": "300 hours"
+  },
+  {
+    "id": 4,
+    "title": "Responsive Web Design",
+    "issuer": "freeCodeCamp",
+    "date": "October 2023",
+    "image": "webdesign-certificate.png",
+    "description": "Comprehensive web design course covering HTML5, CSS3, responsive design principles, accessibility, and modern CSS frameworks.",
+    "tags": ["webdesign", "html", "css"],
+    "skills": ["HTML5", "CSS3", "Responsive Design", "CSS Grid", "Flexbox", "Accessibility"],
+    "credentialUrl": "https://www.freecodecamp.org/certification/fcca2ad2527-8738-46a5-b095-aafc3de476d1/responsive-web-design",
+    "duration": "300 hours"
+  }
+]
 const CertificatesContainer = styled.section`
   min-height: 100vh;
   padding: 5rem 2rem;
@@ -408,11 +456,12 @@ const Certificates = () => {
                   <FiX />
                 </CloseButton>
                 
+                // In the ModalContent section, update the ModalImage:
                 <ModalImage
-                  src={`/src/assets/images/certificates/${selectedCertificate.image}`}
+                  src={`/assets/images/certificates/${selectedCertificate.image}`}
                   alt={selectedCertificate.title}
                   onError={(e) => {
-                    e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjMUUyOTNCIi8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjE1MCIgcj0iNDAiIGZpbGw9IiMyNTYzRUIiIG9wYWNpdHk9IjAuMyIvPgo8dGV4dCB4PSIzMDAiIHk9IjI1MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjNjQ3NDhCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DZXJ0aWZpY2F0ZSBJbWFnZTwvdGV4dD4KPHRleHQgeD0iMzAwIiB5PSIyODAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzY0NzQ4QiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Tm90IGF2YWlsYWJsZTwvdGV4dD4KPC9zdmc+';
+                    e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjMUUyOTNCIi8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjE1MCIgcj0iNDAiIGZpbGw9IiMyNTYzRUIiIG9wYWNpdHk9IjAuMyIvPgo8dGV4dCB4PSIzMDAiIHk9IjI1MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjNjQ3NDhCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DZXJ0aWZpY2F0ZSBJbWFnZTwvdGV4dD4KPHRleHQgeD0iMzAwIiBllPSIyODAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzY0NzQ4QiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Tm90IGF2YWlsYWJsZTwvdGV4dD4KPC9zdmc+';
                   }}
                 />
                 <ModalTitle>{selectedCertificate.title}</ModalTitle>
