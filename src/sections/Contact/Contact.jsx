@@ -292,7 +292,7 @@ const Contact = () => {
       icon: <FiPhone />,
       label: 'Phone',
       value: '+212 6 04 34 16 69',
-      link: 'tel:+2126XXXXXXX'
+      link: 'tel:+212604341669'
     }
   ];
 
