@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
-import Timeline from '../../components/Timeline/Timeline';
+import Timeline from '../../components/Timeline/TimeLine';
 
 const AboutContainer = styled.section`
   min-height: 100vh;
