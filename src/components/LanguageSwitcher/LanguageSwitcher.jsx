@@ -124,7 +124,7 @@ const LanguageSwitcher = () => {
         whileHover="hover"
         whileTap="tap"
       >
-        🇫🇷 FR
+         FR
       </LanguageButton>
       
       {i18n.language === 'en' && <LanguageIndicator layoutId="languageIndicator" />}
@@ -135,7 +135,7 @@ const LanguageSwitcher = () => {
         whileHover="hover"
         whileTap="tap"
       >
-        🇬🇧 EN
+         EN
       </LanguageButton>
     </LanguageContainer>
   );
