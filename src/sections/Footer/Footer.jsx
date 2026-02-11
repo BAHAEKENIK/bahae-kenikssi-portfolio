@@ -319,7 +319,7 @@ const Footer = () => {
               </ContactItem>
               <ContactItem>
                 <FiMapPin />
-                Ouezzane, Morocco
+                Rabat, Morocco
               </ContactItem>
             </ContactInfo>
           </ContactSection>

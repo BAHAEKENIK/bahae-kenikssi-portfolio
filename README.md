@@ -1,16 +1,115 @@
-# React + Vite
+﻿# Bahae Kenikssi Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio website built with React and Vite. It showcases projects, experience, skills, certificates, and a contact form.
 
-Currently, two official plugins are available:
+Live site
+- `https://bahae-kenikssi-portfolio.vercel.app/`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
+This project is a single-page portfolio with smooth animations, responsive layout, and a contact form powered by EmailJS. Content is driven by JSON data files and translations.
 
-## React Compiler
+## Features
+- Hero section with profile image and call-to-action buttons
+- About, Experience, Projects, Skills, Certificates, and Contact sections
+- Contact form with EmailJS integration
+- Responsive layout for desktop and mobile
+- Animated UI using Framer Motion
+- i18n support with English and French translation files
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
+- React 18
+- Vite
+- styled-components
+- Framer Motion
+- i18next and react-i18next
+- EmailJS
 
-## Expanding the ESLint configuration
+## Project Structure
+```
+src/
+  components/
+  config/
+    emailjs.js
+  data/
+    certificates.json
+    experience.json
+    projects.json
+    skills.json
+  hooks/
+  locales/
+    en/translation.json
+    fr/translation.json
+  sections/
+    About/
+    Certificates/
+    Contact/
+    Experience/
+    Footer/
+    Hero/
+    Projects/
+    Skills/
+  styles/
+  App.jsx
+  i18n.js
+  main.jsx
+public/
+  assets/images/
+  cv/
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+Prerequisites
+- Node.js 18 or newer
+
+Install
+- `npm install`
+
+Run locally
+- `npm run dev`
+
+Build
+- `npm run build`
+
+Preview production build
+- `npm run preview`
+
+## Configuration
+EmailJS setup
+- Update `src/config/emailjs.js` with your EmailJS credentials.
+- The contact form uses the following template variables:
+- `{{from_name}}`
+- `{{from_email}}`
+- `{{message}}`
+- `{{to_name}}`
+- `{{reply_to}}`
+
+If you do not want to use EmailJS, remove the contact form logic in `src/hooks/useContactForm.js` and update `src/sections/Contact/Contact.jsx` accordingly.
+
+## Content Management
+Edit data files
+- `src/data/experience.json`
+- `src/data/projects.json`
+- `src/data/skills.json`
+- `src/data/certificates.json`
+
+Edit translations
+- `src/locales/en/translation.json`
+- `src/locales/fr/translation.json`
+
+Update assets
+- Profile image and section images live under `public/assets/images/`
+- CV files live under `public/cv/`
+
+## Deployment
+This project is Vite-based and deploys cleanly to static hosts like Vercel.
+
+Vercel steps
+- Import the repository in Vercel
+- Build command: `npm run build`
+- Output directory: `dist`
+
+## Scripts
+- `npm run dev` starts the local dev server
+- `npm run build` builds for production
+- `npm run preview` previews the production build
+- `npm run lint` runs ESLint

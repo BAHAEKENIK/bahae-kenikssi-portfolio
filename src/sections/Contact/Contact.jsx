@@ -279,8 +279,8 @@ const Contact = () => {
     {
       icon: <FiMapPin />,
       label: 'Location',
-      value: 'Ouezzane, Morocco',
-      link: 'https://www.google.com/maps/place/Ouazzane/@34.8063393,-5.6151406,13z/data=!3m1!4b1!4m6!3m5!1s0xd0af214a9a5c247:0x78e0bca6569eeaf0!8m2!3d34.7971926!4d-5.5789576!16zL20vMDJzdjN3?entry=ttu&g_ep=EgoyMDI1MTAxNC4wIKXMDSoASAFQAw%3D%3D'
+      value: 'Rabat, Morocco',
+      link: 'https://www.google.com/maps/place/Rabat,+Morocco'
     },
     {
       icon: <FiMail />,
