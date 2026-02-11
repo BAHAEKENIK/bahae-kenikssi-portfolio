@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import { GlobalStyles } from './styles/GlobalStyles';
-import BackgroundAnimation from './components/BackgroundAnimation/BackgroundAnimation';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import Navigation from './components/Navigation/Navigation';
-import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher';
 import Hero from './sections/Hero/Hero';
 import About from './sections/About/About';
 import Experience from './sections/Experience/Experience';
@@ -89,8 +87,6 @@ function App() {
     <>
       <GlobalStyles />
       <AppContainer>
-        <BackgroundAnimation />
-        
         <AnimatePresence mode="wait">
           {isLoading ? (
             <LoadingScreen onLoadingComplete={handleLoadingComplete} />
@@ -103,7 +99,6 @@ function App() {
               variants={pageVariants}
               transition={pageTransition}
             >
-              <LanguageSwitcher />
               <Navigation />
               {/* Add scroll progress indicator */}
               <div 

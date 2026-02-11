@@ -5,7 +5,6 @@ import styled, { keyframes } from 'styled-components';
 import ProfileImage from '../../components/ProfileImage/ProfileImage';
 import AnimatedText from '../../components/AnimatedText/AnimatedText';
 import { Button } from '../../styles/GlobalStyles';
-import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
 
 const HeroContainer = styled.section`
   min-height: 100vh;
@@ -439,7 +438,6 @@ const Hero = () => {
 
   return (
     <HeroContainer id="home">
-      <LanguageSwitcher />
       <HeroContent>
         <TextContent
           variants={containerVariants}

@@ -105,55 +105,6 @@ const SkillsList = styled.div`
   gap: 1rem;
 `;
 
-const LanguagesSection = styled(motion.div)`
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 2rem;
-  margin-top: 2rem;
-`;
-
-const LanguagesTitle = styled.h3`
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #f8fafc;
-  margin-bottom: 1.5rem;
-  text-align: center;
-`;
-
-const LanguagesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-`;
-
-const LanguageItem = styled(motion.div)`
-  text-align: center;
-  padding: 1.5rem;
-  background: rgba(37, 99, 235, 0.1);
-  border: 1px solid rgba(37, 99, 235, 0.3);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: rgba(37, 99, 235, 0.2);
-    transform: translateY(-3px);
-  }
-`;
-
-const LanguageName = styled.div`
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #f8fafc;
-  margin-bottom: 0.5rem;
-`;
-
-const LanguageLevel = styled.div`
-  font-size: 0.9rem;
-  color: #64748b;
-  font-weight: 500;
-`;
 
 const Skills = () => {
   const { t } = useTranslation();
@@ -166,11 +117,6 @@ const Skills = () => {
     tools: <FiTool />
   };
 
-  const languages = [
-    { name: 'Arabic', level: 'Native', flag: '🇲🇦' },
-    { name: 'French', level: 'B1', flag: '🇫🇷' },
-    { name: 'English', level: 'B1', flag: '🇬🇧' }
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -193,17 +139,6 @@ const Skills = () => {
     }
   };
 
-  const languageVariants = {
-    hidden: { scale: 0, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100
-      }
-    }
-  };
 
   return (
     <SkillsContainer id="skills">
@@ -253,30 +188,6 @@ const Skills = () => {
           ))}
         </SkillsGrid>
 
-        <LanguagesSection
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <LanguagesTitle>Languages</LanguagesTitle>
-          <LanguagesGrid>
-            {languages.map((language, index) => (
-              <LanguageItem
-                key={language.name}
-                variants={languageVariants}
-                whileHover={{ scale: 1.05 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-                  {language.flag}
-                </div>
-                <LanguageName>{language.name}</LanguageName>
-                <LanguageLevel>{language.level}</LanguageLevel>
-              </LanguageItem>
-            ))}
-          </LanguagesGrid>
-        </LanguagesSection>
       </Container>
     </SkillsContainer>
   );
