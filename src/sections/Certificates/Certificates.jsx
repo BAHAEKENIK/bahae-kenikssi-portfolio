@@ -455,8 +455,7 @@ const Certificates = () => {
                 >
                   <FiX />
                 </CloseButton>
-                
-                // In the ModalContent section, update the ModalImage:
+
                 <ModalImage
                   src={`/assets/images/certificates/${selectedCertificate.image}`}
                   alt={selectedCertificate.title}
