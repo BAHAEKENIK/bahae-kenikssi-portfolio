@@ -16,13 +16,13 @@ const HeroContainer = styled.section`
   padding: 0 2rem;
 
   @media (max-width: 768px) {
-    padding: 0 1rem;
+    padding: 5.5rem 1rem 0;
     text-align: center;
     min-height: 90vh;
   }
 
   @media (max-width: 480px) {
-    padding: 0 0.5rem;
+    padding: 5rem 0.5rem 0;
     min-height: 85vh;
   }
 `;

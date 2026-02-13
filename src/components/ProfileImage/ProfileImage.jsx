@@ -24,9 +24,16 @@ const ProfileImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
   transition: transform 0.3s ease;
   opacity: ${props => props.$isLoaded ? 1 : 0};
   transition: opacity 0.3s ease;
+
+  @media (max-width: 768px) {
+    object-fit: contain;
+    object-position: center;
+    background: #f8fafc;
+  }
 
   &:hover {
     transform: scale(1.05);
