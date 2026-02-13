@@ -61,6 +61,30 @@
       "level": 85,
       "color": "#2563EB",
       "icon": "api"
+    },
+    {
+      "name": "Java",
+      "level": 90,
+      "color": "#F89820",
+      "icon": "java"
+    },
+    {
+      "name": "C#",
+      "level": 90,
+      "color": "#512BD4",
+      "icon": "csharp"
+    },
+    {
+      "name": "Spring Boot",
+      "level": 90,
+      "color": "#6DB33F",
+      "icon": "spring"
+    },
+    {
+      "name": ".NET",
+      "level": 90,
+      "color": "#512BD4",
+      "icon": "dotnet"
     }
   ],
   "database": [

@@ -52,6 +52,54 @@ const certificatesData=[
     "skills": ["HTML5", "CSS3", "Responsive Design", "CSS Grid", "Flexbox", "Accessibility"],
     "credentialUrl": "https://www.freecodecamp.org/certification/fcca2ad2527-8738-46a5-b095-aafc3de476d1/responsive-web-design",
     "duration": "300 hours"
+  },
+  {
+    "id": 5,
+    "title": "Java Programming for Beginners",
+    "issuer": "Coursera (Authorized by IBM)",
+    "date": "2026",
+    "image": "java-programming-for-beginners.png",
+    "description": "This badge earner has essential knowledge of Java programming, including Java setup (JDK, JRE, IDE), Java ecosystem fundamentals, core language constructs, arrays, strings, methods, and exception handling.",
+    "tags": ["java", "coursera", "ibm"],
+    "skills": ["Java Basics", "Java Ecosystem", "Control Flow", "Exceptions", "Problem Solving"],
+    "credentialUrl": "https://www.credly.com/badges/46cb51b9-92a8-4388-b7c1-34763c6f8ffd/linked_in_profile",
+    "duration": "Intermediate"
+  },
+  {
+    "id": 6,
+    "title": "Git Basics",
+    "issuer": "CodeSignal",
+    "date": "2026",
+    "image": "Git Basics.webp",
+    "description": "Fundamental Git concepts and workflows, including repositories, tracking code changes, commits, and essential commands used in daily development.",
+    "tags": ["git", "version-control"],
+    "skills": ["Git Fundamentals", "Commits", "Repository Management", "Version Control"],
+    "credentialUrl": "https://codesignal.com/learn/certificates/cm3q612by001a11n5gtabqn1j/courses/655",
+    "duration": "Course Certificate"
+  },
+  {
+    "id": 7,
+    "title": "Undoing Changes and Time Traveling",
+    "issuer": "CodeSignal",
+    "date": "2026",
+    "image": "Undoing Changes and Time Traveling.webp",
+    "description": "Git history navigation and recovery techniques, including checkout of previous commits, discarding or resetting changes, and safely reverting commits.",
+    "tags": ["git", "version-control"],
+    "skills": ["Git Checkout", "Reset", "Revert", "History Navigation"],
+    "credentialUrl": "https://codesignal.com/learn/certificates/cm3q612by001a11n5gtabqn1j/courses/657",
+    "duration": "Course Certificate"
+  },
+  {
+    "id": 8,
+    "title": "Working with Remote Repositories",
+    "issuer": "CodeSignal",
+    "date": "2026",
+    "image": "working_with_branch.webp",
+    "description": "Collaboration with remote repositories such as GitHub, including cloning, pushing, fetching updates, and working with remote branches.",
+    "tags": ["git", "github", "collaboration"],
+    "skills": ["Remote Repositories", "GitHub Workflow", "Cloning", "Branch Collaboration"],
+    "credentialUrl": "https://codesignal.com/learn/certificates/cm3q612by001a11n5gtabqn1j/courses/658",
+    "duration": "Course Certificate"
   }
 ]
 const CertificatesContainer = styled.section`
@@ -297,6 +345,8 @@ const Certificates = () => {
     { key: 'all', label: 'All Certificates', icon: <FiFilter /> },
     { key: 'react', label: 'React', icon: <FiFilter /> },
     { key: 'javascript', label: 'JavaScript', icon: <FiFilter /> },
+    { key: 'java', label: 'Java', icon: <FiFilter /> },
+    { key: 'git', label: 'Git', icon: <FiFilter /> },
     { key: 'sql', label: 'SQL', icon: <FiFilter /> },
     { key: 'webdesign', label: 'Web Design', icon: <FiFilter /> }
   ];
