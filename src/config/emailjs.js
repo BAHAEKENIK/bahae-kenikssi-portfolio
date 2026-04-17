@@ -3,9 +3,9 @@
 
 export const EMAILJS_CONFIG = {
   // Replace these with your actual EmailJS credentials
-  serviceId: 'service_1056uvd', // Found in EmailJS dashboard under "Email Services"
+  serviceId: 'service_u0owr9f', // Found in EmailJS dashboard under "Email Services"
   templateId: 'template_1fqnkn5', // Found in EmailJS dashboard under "Email Templates"
-  publicKey: 'JvC3xoPI8n5OQBelZ' // Found in EmailJS dashboard under "Account" > "API Keys"
+  publicKey: 'yVPGS-aaMlJl9mYJI' // Found in EmailJS dashboard under "Account" > "API Keys"
 };
 
 // Instructions to set up EmailJS:
