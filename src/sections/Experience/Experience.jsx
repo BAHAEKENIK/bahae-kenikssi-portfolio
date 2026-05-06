@@ -7,6 +7,37 @@ import { FiCalendar, FiMapPin, FiExternalLink } from 'react-icons/fi';
 const experienceData=[
   {
     "id": 1,
+    "title": "Full Stack Developer Intern",
+    "company": "Hutchinson Maroc",
+    "location": "Tangier, Morocco",
+    "period": "April 2026 - Present",
+    "description": "Working as a full-stack developer intern on enterprise-level applications, contributing to both front-end and back-end development, system design, and debugging using modern tools and frameworks.",
+    "responsibilities": [
+      "Developing and maintaining full-stack applications using Angular, Spring Boot, and Django",
+      "Designing and managing relational databases with SQL Server and MySQL",
+      "Deploying applications locally with server configuration and environment setup",
+      "Creating UML diagrams for system architecture and application design",
+      "Implementing modern UI/UX animations using Framer Motion",
+      "Debugging and optimizing code using AI tools like Claude and Codex",
+      "Collaborating with team members on scalable and maintainable solutions"
+    ],
+    "technologies": [
+      "Angular",
+      "Spring Boot",
+      "Django",
+      "SQL Server",
+      "MySQL",
+      "UML",
+      "Framer Motion",
+      "Local Deployment",
+      "Server Configuration",
+      "Claude AI",
+      "OpenAI Codex",
+      "Git"
+    ]
+  },
+  {
+    "id": 2,
     "title": "Full Stack Web Developer Intern",
     "company": "Union IT Service",
     "location": "Casablanca, Morocco",
@@ -37,11 +68,11 @@ const experienceData=[
     "website": "https://uits.ma/"
   },
   {
-    "id": 2,
+    "id": 3,
     "title": "Web Development Student",
     "company": "Institute Specialized in Offshore Professions",
     "location": "Tetouan, Morocco",
-    "period": "September 2023 - July 2025",
+    "period": "September 2023 - Present",
     "description": "Comprehensive full-stack web development training program focusing on modern technologies and best practices.",
     "responsibilities": [
       "Completed intensive training in front-end and back-end development",
@@ -65,7 +96,7 @@ const experienceData=[
       "UML"
     ]
   }
-]
+];
 const ExperienceContainer = styled.section`
   min-height: 100vh;
   padding: 5rem 2rem;
