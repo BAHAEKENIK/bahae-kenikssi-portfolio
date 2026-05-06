@@ -311,11 +311,11 @@ const Footer = () => {
           </LinksSection>
 
           <ContactSection variants={itemVariants}>
-            <SectionTitle>Get In Touch</SectionTitle>
+            <SectionTitle>Get In Touchs</SectionTitle>
             <ContactInfo>
               <ContactItem>
                 <FiMail />
-                bahaekenik@email.com
+                bahaekenik@gmail.com
               </ContactItem>
               <ContactItem>
                 <FiMapPin />
