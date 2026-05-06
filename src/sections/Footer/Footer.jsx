@@ -311,7 +311,7 @@ const Footer = () => {
           </LinksSection>
 
           <ContactSection variants={itemVariants}>
-            <SectionTitle>Get In Touchs</SectionTitle>
+            <SectionTitle>Get In Touch</SectionTitle>
             <ContactInfo>
               <ContactItem>
                 <FiMail />
