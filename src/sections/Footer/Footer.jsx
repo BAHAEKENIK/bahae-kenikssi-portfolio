@@ -201,6 +201,7 @@ const ScrollToTop = styled(motion.button)`
 
 const Footer = () => {
   const { t } = useTranslation();
+  const currentYear = new Date().getFullYear(); // Récupération dynamique de l'année
 
   const quickLinks = [
     { name: t('nav.home'), href: '#home' },
@@ -327,7 +328,7 @@ const Footer = () => {
 
         <BottomSection>
           <Copyright>
-           {t('footer.copyright')}
+            {t('footer.copyright', { year: currentYear })} {/* Interpolation de l'année */}
           </Copyright>
           
           <MadeWith>

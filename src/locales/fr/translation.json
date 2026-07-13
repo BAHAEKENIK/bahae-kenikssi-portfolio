@@ -119,7 +119,7 @@
     "error": "Erreur lors de l'envoi du message. Veuillez réessayer."
   },
   "footer": {
-    "copyright": "© 2025 Bahae Kenikssi. Tous droits réservés.",
+    "copyright": "© {{year}} Bahae Kenikssi. Tous droits réservés.",
     "madeWith": ""
   }
 }
