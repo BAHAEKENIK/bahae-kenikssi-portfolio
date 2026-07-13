@@ -12,13 +12,6 @@ export const useContactForm = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  // EmailJS configuration - you'll need to replace these with your actual values
-//   const EMAILJS_CONFIG = {
-//     serviceId: 'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-//     templateId: 'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
-//     publicKey: 'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
-//   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -49,16 +42,26 @@ export const useContactForm = () => {
         throw new Error('Please enter a valid email address');
       }
 
+      // Prepare additional template variables
+      const now = new Date();
+      const timeString = now.toLocaleString('en-US', {
+        dateStyle: 'full',
+        timeStyle: 'short'
+      });
+      const firstLetter = formData.name.charAt(0).toUpperCase();
+      const currentYear = now.getFullYear();
+
       // Send email using EmailJS
       const result = await emailjs.send(
         EMAILJS_CONFIG.serviceId,
         EMAILJS_CONFIG.templateId,
         {
-          from_name: formData.name,
-          from_email: formData.email,
+          name: formData.name,
+          email: formData.email,
           message: formData.message,
-          to_name: 'Bahae Kenikssi',
-          reply_to: formData.email
+          time: timeString,
+          firstLetter: firstLetter,
+          currentYear: currentYear
         },
         EMAILJS_CONFIG.publicKey
       );
