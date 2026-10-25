@@ -158,7 +158,7 @@ const Skills = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
         >
-          {Object.entries(skillsData).map(([category, skills], index) => (
+          {Object.entries(skillsData).map(([category, skills]) => (
             <SkillCategory
               key={category}
               variants={itemVariants}

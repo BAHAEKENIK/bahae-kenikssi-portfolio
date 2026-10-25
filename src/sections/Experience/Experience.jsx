@@ -393,7 +393,7 @@ const Experience = () => {
         </SectionTitle>
 
         <TimelineContainer>
-          {experienceData.map((experience, index) => (
+          {experienceData.map((experience) => (
             <ExperienceItem
               key={experience.id}
               variants={containerVariants}

@@ -24,29 +24,65 @@
     "technologies": "Technologies Mastered",
     "education": {
       "title": "Education",
-      "degree": "Web Full Stack Specialist Technician Diploma",
-      "school": "Institute specialized in offshore professions, Tetouan",
-      "period": "September 2023 - June 2025",
-      "baccalaureate": {
-        "title": "Scientific Baccalaureate",
-        "school": "Ibn Roched High School - Asjen Ouezzane",
-        "description": "Physics Option with French Option"
-      }
+      "items": [
+        {
+          "degree": "Bachelor in Engineering Sciences - Computer Engineering Option",
+          "school": "L'École High-Tech de Rabat",
+          "period": "2026 - Present",
+          "description": "Currently pursuing advanced studies in software development, network administration, cybersecurity, and database management."
+        },
+        {
+          "degree": "Web Full Stack Specialist Technician Diploma",
+          "school": "Institute specialized in offshore professions, Tetouan",
+          "period": "September 2023 - June 2025"
+        },
+        {
+          "degree": "Scientific Baccalaureate",
+          "school": "Ibn Roched High School - Asjen Ouezzane",
+          "period": "",
+          "description": "Physics Option with French Option"
+        }
+      ]
     }
   },
   "experience": {
     "title": "Experience",
-    "internship": {
-      "title": "Full Stack Web Developer Intern",
-      "company": "Union IT Service - Casablanca",
-      "period": "May 2025 - June 2025",
-      "responsibilities": [
-        "Participated in the development of an internal management system for companies (employees, tasks, time tracking, complaints)",
-        "Worked on secure authentication, role management, data import/export, and dynamic dashboard",
-        "Used Laravel, PHP, MVC Architecture, RESTful API design",
-        "Front-end development with Blade, Tailwind CSS, Alpine.js, JavaScript"
-      ]
-    }
+    "items": [
+      {
+        "title": "Bachelor in Engineering Sciences - Computer Engineering Option",
+        "company": "L'École High-Tech de Rabat",
+        "period": "2026 - Present",
+        "responsibilities": [
+          "Studying Object-Oriented Design and Programming (Java, Python)",
+          "Developing web applications using JSP, Servlet, MVC, PHP, and React",
+          "Learning advanced database concepts and Oracle Database Administration",
+          "Managing local networks and system administration (Windows Active Directory, UNIX)",
+          "Studying Cybersecurity Fundamentals and Data Analysis"
+        ]
+      },
+      {
+        "title": "Full Stack Developer Intern",
+        "company": "Hutchinson Maroc - Tangier",
+        "period": "April 2026 - Present",
+        "responsibilities": [
+          "Developing and maintaining full-stack applications using Angular, Spring Boot, and Django",
+          "Designing and managing relational databases with SQL Server and MySQL",
+          "Deploying applications locally with server configuration and environment setup",
+          "Creating UML diagrams for system architecture and application design"
+        ]
+      },
+      {
+        "title": "Full Stack Web Developer Intern",
+        "company": "Union IT Service - Casablanca",
+        "period": "May 2025 - June 2025",
+        "responsibilities": [
+          "Participated in the development of an internal management system for companies (employees, tasks, time tracking, complaints)",
+          "Worked on secure authentication, role management, data import/export, and dynamic dashboard",
+          "Used Laravel, PHP, MVC Architecture, RESTful API design",
+          "Front-end development with Blade, Tailwind CSS, Alpine.js, JavaScript"
+        ]
+      }
+    ]
   },
   "projects": {
     "title": "My Projects",
@@ -104,6 +140,11 @@
         "title": "Responsive Web Design",
         "issuer": "freeCodeCamp",
         "date": "October 2023"
+      },
+      "cisco": {
+        "title": "Cisco CCNA",
+        "issuer": "Cisco",
+        "date": "In Progress"
       }
     }
   },

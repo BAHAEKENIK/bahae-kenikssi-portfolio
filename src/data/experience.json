@@ -1,5 +1,36 @@
 [
   {
+    "id": 4,
+    "title": "Bachelor in Engineering Sciences - Computer Engineering Option (Licence en Sciences de l'Ingénieur - Génie Informatique)",
+    "company": "L'École High-Tech de Rabat",
+    "location": "Rabat, Morocco",
+    "period": "2026 - Present",
+    "description": "Currently pursuing a comprehensive engineering degree in Computer Science, focusing on advanced software development, network administration, cybersecurity, and database management.",
+    "responsibilities": [
+      "Studying Object-Oriented Design and Programming (Java, Python)",
+      "Developing web applications using JSP, Servlet, MVC, PHP, and React",
+      "Learning advanced database concepts and Oracle Database Administration",
+      "Managing local networks and system administration (Windows Active Directory, UNIX)",
+      "Studying Cybersecurity Fundamentals and Data Analysis",
+      "Engaging in project management, entrepreneurship, and professional communication"
+    ],
+    "technologies": [
+      "Java",
+      "Python",
+      "PHP",
+      "React",
+      "JSP",
+      "Servlet",
+      "MVC",
+      "Oracle",
+      "Active Directory",
+      "UNIX",
+      "Cybersecurity",
+      "Data Analysis",
+      "Advanced Excel"
+    ]
+  },
+  {
     "id": 1,
     "title": "Full Stack Developer Intern",
     "company": "Hutchinson Maroc",

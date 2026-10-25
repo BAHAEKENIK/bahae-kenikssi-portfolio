@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { FiGithub, FiExternalLink, FiFolder } from 'react-icons/fi';
-
 const Card = styled(motion.div)`
   background: rgba(30, 41, 59, 0.6);
   backdrop-filter: blur(10px);
@@ -177,7 +176,7 @@ const FeatureItem = styled.li`
 `;
 
 const ProjectCard = ({ project, index }) => {
-  const { t } = useTranslation();
+  
   const [imageError, setImageError] = useState(false);
 
   const cardVariants = {

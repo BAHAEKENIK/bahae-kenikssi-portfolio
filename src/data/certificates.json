@@ -46,5 +46,17 @@
     "skills": ["HTML5", "CSS3", "Responsive Design", "CSS Grid", "Flexbox", "Accessibility"],
     "credentialUrl": "https://www.freecodecamp.org/certification/fcca2ad2527-8738-46a5-b095-aafc3de476d1/responsive-web-design",
     "duration": "300 hours"
+  },
+  {
+    "id": 5,
+    "title": "Cisco CCNA",
+    "issuer": "Cisco",
+    "date": "In Progress",
+    "image": "cisco-ccna-certificate.png",
+    "description": "Cisco Certified Network Associate (CCNA) certification covering network fundamentals, network access, IP connectivity, IP services, security fundamentals, and automation and programmability.",
+    "tags": ["networking", "cisco"],
+    "skills": ["Network Fundamentals", "Routing & Switching", "IP Connectivity", "Network Security", "Automation"],
+    "credentialUrl": null,
+    "duration": "In Progress"
   }
 ]

@@ -6,7 +6,7 @@ This is a personal portfolio project. Security updates are applied as needed.
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in this project, please contact me directly at bahaekenikssi@email.com.
+If you discover a security vulnerability in this project, please contact me directly at bahaekenik@gmail.com.
 
 **Please do not disclose security vulnerabilities publicly until they have been handled by the maintainers.**
 

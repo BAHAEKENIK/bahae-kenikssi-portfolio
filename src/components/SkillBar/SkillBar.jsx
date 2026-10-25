@@ -131,7 +131,7 @@ const getSkillIcon = (iconName, color) => {
   return icons[iconName] || <FiCode {...iconProps} />;
 };
 
-const SkillBar = ({ skill, index, isActive, onHover }) => {
+const SkillBar = ({ skill, index, onHover }) => {
   const { name, level, color, icon } = skill;
 
   const barVariants = {
