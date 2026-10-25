@@ -24,29 +24,65 @@
     "technologies": "Technologies Maîtrisées",
     "education": {
       "title": "Éducation",
-      "degree": "Diplôme de Technicien Spécialisé en Développement Digital",
-      "school": "Institut spécialisé dans les métiers de l'offshoring, Tétouan",
-      "period": "Septembre 2023 - Juin 2025",
-      "baccalaureate": {
-        "title": "Baccalauréat Scientifique",
-        "school": "Lycée Ibn Roched - Asjen Ouezzane",
-        "description": "Option Physique option français"
-      }
+      "items": [
+        {
+          "degree": "Licence en Sciences de l'Ingénieur - Option Génie Informatique",
+          "school": "L'École High-Tech de Rabat",
+          "period": "2026 - Présent",
+          "description": "Poursuite d'études avancées en développement logiciel, administration réseau, cybersécurité et gestion de bases de données."
+        },
+        {
+          "degree": "Diplôme de Technicien Spécialisé en Développement Digital",
+          "school": "Institut spécialisé dans les métiers de l'offshoring, Tétouan",
+          "period": "Septembre 2023 - Juin 2025"
+        },
+        {
+          "degree": "Baccalauréat Scientifique",
+          "school": "Lycée Ibn Roched - Asjen Ouezzane",
+          "period": "",
+          "description": "Option Physique option français"
+        }
+      ]
     }
   },
   "experience": {
     "title": "Expérience",
-    "internship": {
-      "title": "Stagiaire Développeur Web Full Stack",
-      "company": "Union IT Service - Casablanca",
-      "period": "Mai 2025 - Juin 2025",
-      "responsibilities": [
-        "Participation au développement d'un système de gestion interne pour entreprise (employés, tâches, pointage, réclamations)",
-        "Travail sur l'authentification sécurisée, la gestion des rôles, l'import/export de données, et un tableau de bord dynamique",
-        "Utilisation de Laravel, PHP, Architecture MVC, Conception d'API RESTful",
-        "Développement Front-end avec Blade, Tailwind CSS, Alpine.js, JavaScript"
-      ]
-    }
+    "items": [
+      {
+        "title": "Licence en Sciences de l'Ingénieur - Option Génie Informatique",
+        "company": "L'École High-Tech de Rabat",
+        "period": "2026 - Présent",
+        "responsibilities": [
+          "Étude de la conception et programmation orientée objet (Java, Python)",
+          "Développement d'applications web avec JSP, Servlet, MVC, PHP et React",
+          "Apprentissage des concepts avancés de bases de données et administration Oracle",
+          "Gestion des réseaux locaux et administration système (Active Directory Windows, UNIX)",
+          "Étude des fondamentaux de la cybersécurité et de l'analyse de données"
+        ]
+      },
+      {
+        "title": "Stagiaire Développeur Full Stack",
+        "company": "Hutchinson Maroc - Tanger",
+        "period": "Avril 2026 - Présent",
+        "responsibilities": [
+          "Développement et maintenance d'applications full-stack avec Angular, Spring Boot et Django",
+          "Conception et gestion de bases de données relationnelles avec SQL Server et MySQL",
+          "Déploiement local d'applications avec configuration serveur et environnement",
+          "Création de diagrammes UML pour l'architecture système et la conception d'applications"
+        ]
+      },
+      {
+        "title": "Stagiaire Développeur Web Full Stack",
+        "company": "Union IT Service - Casablanca",
+        "period": "Mai 2025 - Juin 2025",
+        "responsibilities": [
+          "Participation au développement d'un système de gestion interne pour entreprise (employés, tâches, pointage, réclamations)",
+          "Travail sur l'authentification sécurisée, la gestion des rôles, l'import/export de données, et un tableau de bord dynamique",
+          "Utilisation de Laravel, PHP, Architecture MVC, Conception d'API RESTful",
+          "Développement Front-end avec Blade, Tailwind CSS, Alpine.js, JavaScript"
+        ]
+      }
+    ]
   },
   "projects": {
     "title": "Mes Projets",
@@ -104,6 +140,11 @@
         "title": "Web Design Responsive",
         "issuer": "freeCodeCamp",
         "date": "Octobre 2023"
+      },
+      "cisco": {
+        "title": "Cisco CCNA",
+        "issuer": "Cisco",
+        "date": "En cours"
       }
     }
   },
