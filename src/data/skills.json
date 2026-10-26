@@ -53,7 +53,7 @@
     {
       "name": "Express.js",
       "level": 70,
-      "color": "#000000",
+      "color": "#888888",
       "icon": "express"
     },
     {
@@ -64,27 +64,15 @@
     },
     {
       "name": "Java",
-      "level": 90,
+      "level": 70,
       "color": "#F89820",
       "icon": "java"
-    },
-    {
-      "name": "C#",
-      "level": 90,
-      "color": "#512BD4",
-      "icon": "csharp"
     },
     {
       "name": "Spring Boot",
       "level": 90,
       "color": "#6DB33F",
       "icon": "spring"
-    },
-    {
-      "name": ".NET",
-      "level": 90,
-      "color": "#512BD4",
-      "icon": "dotnet"
     }
   ],
   "database": [
@@ -134,7 +122,7 @@
     },
     {
       "name": "Framer Motion",
-      "level": 80,
+      "level": 60,
       "color": "#FF69B4",
       "icon": "framer"
     }

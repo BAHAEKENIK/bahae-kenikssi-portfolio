@@ -22,6 +22,7 @@
     "experience": "Months of Experience",
     "projects": "Projects Completed",
     "technologies": "Technologies Mastered",
+    "technologiesTitle": "Technologies I Work With",
     "education": {
       "title": "Education",
       "items": [
@@ -63,9 +64,9 @@
       {
         "title": "Full Stack Developer Intern",
         "company": "Hutchinson Maroc - Tangier",
-        "period": "April 2026 - Present",
+        "period": "April 2026 - July 2026",
         "responsibilities": [
-          "Developing and maintaining full-stack applications using Angular, Spring Boot, and Django",
+          "Developing and maintaining full-stack applications using React and Spring Boot",
           "Designing and managing relational databases with SQL Server and MySQL",
           "Deploying applications locally with server configuration and environment setup",
           "Creating UML diagrams for system architecture and application design"
@@ -88,6 +89,13 @@
     "title": "My Projects",
     "viewProject": "View Project",
     "viewCode": "View Code",
+    "noProjects": "No projects found for this filter.",
+    "filters": {
+      "all": "All Projects",
+      "laravel": "Laravel",
+      "react": "React",
+      "fullstack": "Full Stack"
+    },
     "items": {
       "getjob": {
         "title": "GetJob - Job Search Platform",
@@ -120,6 +128,11 @@
   },
   "certificates": {
     "title": "My Certificates",
+    "card": {
+      "viewCertificate": "View Certificate",
+      "view": "View",
+      "verify": "Verify"
+    },
     "items": {
       "react": {
         "title": "React from A to Z (Hooks, Redux, Context included)",
@@ -151,6 +164,14 @@
   "contact": {
     "title": "Get In Touch",
     "subtitle": "I'm always interested in new opportunities and collaborations.",
+    "description": "Whether you have a project in mind or just want to say hello, feel free to get in touch!",
+    "followMe": "Follow Me",
+    "info": {
+      "location": "Location",
+      "locationValue": "Rabat, Morocco",
+      "email": "Email",
+      "phone": "Phone"
+    },
     "name": "Your Name",
     "email": "Your Email",
     "message": "Your Message",
@@ -160,7 +181,12 @@
     "error": "Error sending message. Please try again."
   },
   "footer": {
+    "tagline": "Full Stack Developer passionate about creating amazing web experiences. Always learning, always building, always pushing boundaries.",
+    "quickLinks": "Quick Links",
+    "getInTouch": "Get In Touch",
+    "location": "Rabat, Morocco",
+    "scrollToTop": "Scroll to top",
     "copyright": "© {{year}} Bahae Kenikssi. All rights reserved.",
-    "madeWith": ""
+    "madeWith": "Made with"
   }
 }
