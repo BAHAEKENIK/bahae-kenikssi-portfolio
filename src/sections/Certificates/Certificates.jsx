@@ -218,6 +218,13 @@ const Eyebrow = styled.div`
     height: 1px;
     background: #49372D;
   }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    gap: 10px;
+    &::before, &::after { width: 25px; }
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -257,10 +264,11 @@ const FilterSection = styled.div`
   align-items: center;
   margin-bottom: 3rem;
   gap: 2rem;
-  flex-wrap: wrap;
 
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
     flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
   }
 `;
 
@@ -269,6 +277,10 @@ const FilterButtons = styled.div`
   gap: 10px;
   flex-wrap: wrap;
   flex: 1;
+
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
 `;
 
 const FilterButton = styled(motion.button)`
@@ -290,6 +302,11 @@ const FilterButton = styled(motion.button)`
     border-color: #D96D42;
     transform: translateY(-2px);
   }
+
+  @media (max-width: 480px) {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
 `;
 
 const SearchBox = styled.div`
@@ -297,8 +314,10 @@ const SearchBox = styled.div`
   display: flex;
   align-items: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
     width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
   }
 `;
 
@@ -322,7 +341,7 @@ const SearchInput = styled.input`
     color: #92877D;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
     width: 100%;
   }
 `;
@@ -353,7 +372,8 @@ const ClearButton = styled.button`
 /* --- GRID --- */
 const CertificatesGrid = styled(motion.div)`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  /* Updated minmax to prevent overflow on tiny screens */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: 24px;
   align-items: stretch;
 
@@ -380,6 +400,10 @@ const ModalOverlay = styled(motion.div)`
   justify-content: center;
   z-index: 1000;
   padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const ModalContent = styled(motion.div)`
@@ -392,6 +416,11 @@ const ModalContent = styled(motion.div)`
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
+
+  @media (max-width: 768px) {
+    padding: 1.2rem;
+    border-radius: 12px;
+  }
 `;
 
 const ModalImage = styled.img`
@@ -407,6 +436,10 @@ const ModalTitle = styled.h3`
   font-size: 1.8rem;
   color: #F0E8DE;
   margin: 0 0 0.5rem 0;
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const ModalIssuer = styled.p`
@@ -515,7 +548,7 @@ const Certificates = () => {
             <SearchIcon><FiSearch /></SearchIcon>
             <SearchInput
               type="text"
-              placeholder="Rechercher des certificats..."
+              placeholder="Rechercher..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />

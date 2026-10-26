@@ -76,7 +76,14 @@ const TypingPlaceholder = ({ text, speed = 50, delay = 0 }) => {
     };
   }, [text, speed, delay]);
 
-  return <span style={{ color: '#6b625b' }}>{displayedText}<motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.8, repeat: Infinity }}>|</motion.span></span>;
+  return (
+    <span style={{ color: '#6b625b' }}>
+      {displayedText}
+      <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.8, repeat: Infinity }}>
+        |
+      </motion.span>
+    </span>
+  );
 };
 
 /* =========================================
@@ -94,7 +101,10 @@ const ContactContainer = styled.section`
   cursor: default;
 
   @media (max-width: 768px) {
-    padding: 5rem 1rem;
+    padding: 5rem 1.5rem;
+  }
+  @media (max-width: 480px) {
+    padding: 4rem 1rem;
   }
 `;
 
@@ -127,6 +137,10 @@ const Header = styled.div`
   max-width: 800px;
   margin: 0 auto 4rem;
   text-align: center;
+
+  @media (max-width: 480px) {
+    margin-bottom: 2.5rem;
+  }
 `;
 
 const Eyebrow = styled.div`
@@ -147,6 +161,13 @@ const Eyebrow = styled.div`
     height: 1px;
     background: #49372D;
   }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    gap: 10px;
+    &::before, &::after { width: 25px; }
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -156,6 +177,10 @@ const SectionTitle = styled.h2`
   margin: 0;
   letter-spacing: -1px;
   color: #F0E8DE;
+
+  @media (max-width: 480px) {
+    font-size: 28px;
+  }
 `;
 
 const Underline = styled.div`
@@ -186,7 +211,7 @@ const ContentGrid = styled.div`
   gap: 4rem;
   align-items: start;
 
-  @media (max-width: 900px) {
+  @media (max-width: 968px) {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
@@ -197,6 +222,10 @@ const InfoColumn = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  @media (max-width: 480px) {
+    gap: 1.5rem;
+  }
 `;
 
 const InfoSubtitle = styled.h3`
@@ -204,6 +233,10 @@ const InfoSubtitle = styled.h3`
   font-size: 1.5rem;
   color: #F0E8DE;
   margin: 0 0 0.5rem 0;
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const InfoDesc = styled.p`
@@ -229,11 +262,17 @@ const InfoCard = styled.a`
   border-radius: 12px;
   text-decoration: none;
   transition: all 0.3s ease;
+  overflow: hidden; /* Prevents long text from breaking out */
 
   &:hover {
     border-color: #D96D42;
     transform: translateX(5px);
     background: rgba(30, 26, 24, 0.95);
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    gap: 1rem;
   }
 `;
 
@@ -248,11 +287,18 @@ const IconBox = styled.div`
   color: #FFF;
   font-size: 1.2rem;
   flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
 `;
 
 const InfoText = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 0; /* Important for text truncation if email is too long */
 `;
 
 const InfoLabel = styled.span`
@@ -268,6 +314,11 @@ const InfoValue = styled.span`
   color: #F0E8DE;
   font-size: 0.95rem;
   font-weight: 500;
+  word-break: break-all;
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const SocialsRow = styled.div`
@@ -306,6 +357,14 @@ const HandwrittenNote = styled.div`
   margin-top: 1rem;
   text-align: right;
   opacity: 0.8;
+
+  @media (max-width: 968px) {
+    text-align: left;
+    margin-top: 0;
+  }
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 `;
 
 /* --- RIGHT COLUMN (FORM) --- */
@@ -320,7 +379,10 @@ const FormBox = styled(motion.form)`
   position: relative;
 
   @media (max-width: 768px) {
-    padding: 1.5rem;
+    padding: 2rem;
+  }
+  @media (max-width: 480px) {
+    padding: 1.2rem;
   }
 `;
 
@@ -359,11 +421,17 @@ const Input = styled.input`
   font-size: 0.9rem;
   font-family: 'Poppins', sans-serif;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
     border-color: #D96D42;
     box-shadow: 0 0 0 3px rgba(217, 109, 66, 0.15);
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.8rem;
+    font-size: 0.85rem;
   }
 `;
 
@@ -379,15 +447,21 @@ const TextArea = styled.textarea`
   min-height: 140px;
   resize: vertical;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
     border-color: #D96D42;
     box-shadow: 0 0 0 3px rgba(217, 109, 66, 0.15);
   }
+
+  @media (max-width: 480px) {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+    min-height: 120px;
+  }
 `;
 
-// A hack to show the typing placeholder behind the input
 const PlaceholderOverlay = styled.div`
   position: absolute;
   top: 50%;
@@ -397,6 +471,11 @@ const PlaceholderOverlay = styled.div`
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   z-index: 1;
+
+  @media (max-width: 480px) {
+    left: 0.8rem;
+    font-size: 0.85rem;
+  }
 `;
 
 const TextAreaPlaceholderOverlay = styled(PlaceholderOverlay)`

@@ -99,7 +99,7 @@ const TypingEffect = ({ text, delay = 0, speed = 40 }) => {
   }, [text, delay, speed]);
 
   return (
-    <span style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+    <span style={{ position: 'relative', display: 'inline-block', width: '100%', flex: 1, wordBreak: 'break-word' }}>
       {/* Invisible text keeps the layout stable and prevents jumping while typing */}
       <span style={{ visibility: 'hidden', pointerEvents: 'none' }}>{text}</span>
       
@@ -137,7 +137,10 @@ const AboutContainer = styled.section`
   cursor: default;
 
   @media (max-width: 768px) {
-    padding: 5rem 1rem;
+    padding: 5rem 1.5rem;
+  }
+  @media (max-width: 480px) {
+    padding: 4rem 1rem;
   }
 `;
 
@@ -172,6 +175,11 @@ const SectionHeader = styled(motion.div)`
   align-items: center;
   gap: 1.5rem;
   margin-bottom: 4rem;
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
 `;
 
 const SectionNumber = styled.span`
@@ -189,6 +197,11 @@ const SectionNumber = styled.span`
     margin-right: 1rem;
     vertical-align: middle;
   }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+    &::before { width: 25px; margin-right: 0.5rem; }
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -203,8 +216,11 @@ const SectionTitle = styled.h2`
     color: #e97852;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
     font-size: 2.8rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 2.2rem;
   }
 `;
 
@@ -232,6 +248,12 @@ const Description = styled.p`
   color: #B9B2AC;
   margin-bottom: 3rem;
   max-width: 90%;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
 `;
 
 /* --- STATS --- */
@@ -240,6 +262,11 @@ const StatsGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 3.5rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
 `;
 
 const StatCard = styled(motion.div)`
@@ -257,12 +284,23 @@ const StatCard = styled(motion.div)`
     border-color: #8C5B48;
     background: rgba(30, 31, 32, 0.8);
   }
+
+  @media (max-width: 600px) {
+    padding: 1.2rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
 `;
 
 const StatIcon = styled.div`
   color: #e97852;
   font-size: 1.5rem;
   margin-bottom: 1rem;
+
+  @media (max-width: 600px) {
+    margin-bottom: 0;
+  }
 `;
 
 const StatNumber = styled.div`
@@ -271,6 +309,10 @@ const StatNumber = styled.div`
   font-weight: 600;
   color: #f1e9e1;
   margin-bottom: 0.2rem;
+
+  @media (max-width: 600px) {
+    font-size: 1.6rem;
+  }
 `;
 
 const StatLabel = styled.div`
@@ -322,6 +364,11 @@ const SkillTag = styled(motion.span)`
     color: #e97852;
     transform: translateY(-2px);
   }
+
+  @media (max-width: 480px) {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
 `;
 
 const HandwrittenNote = styled.div`
@@ -342,6 +389,9 @@ const HandwrittenNote = styled.div`
     margin-top: 2rem;
     text-align: left;
   }
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 `;
 
 /* --- RIGHT COLUMN (TIMELINE) --- */
@@ -355,6 +405,10 @@ const HandwrittenPath = styled.div`
   color: #e97852;
   margin-bottom: 1rem;
   transform: rotate(-3deg);
+
+  @media (max-width: 480px) {
+    font-size: 1.6rem;
+  }
 `;
 
 const EduHeader = styled.h3`
@@ -362,6 +416,11 @@ const EduHeader = styled.h3`
   font-size: 1.8rem;
   color: #f1e9e1;
   margin-bottom: 2rem;
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const TimelineContainer = styled.div`
@@ -377,6 +436,10 @@ const TimelineContainer = styled.div`
     width: 2px;
     background: #e97852;
     opacity: 0.5;
+  }
+
+  @media (max-width: 480px) {
+    padding-left: 1.5rem;
   }
 `;
 
@@ -395,6 +458,14 @@ const TimelineItem = styled(motion.div)`
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(233, 120, 82, 0.5);
   }
+
+  @media (max-width: 480px) {
+    &::before {
+      left: -1.85rem;
+      width: 10px;
+      height: 10px;
+    }
+  }
 `;
 
 const EduCard = styled.div`
@@ -407,6 +478,10 @@ const EduCard = styled.div`
 
   &:hover {
     border-color: #8C5B48;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.2rem;
   }
 `;
 
@@ -429,12 +504,16 @@ const EduTitle = styled.h4`
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  min-height: 3rem; /* Ensures card doesn't jump while typing */
+  min-height: 3rem;
 
   svg {
     color: #e97852;
     margin-top: 0.2rem;
     flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
   }
 `;
 
@@ -442,6 +521,11 @@ const EduSchool = styled.p`
   font-size: 0.9rem;
   color: #B9B2AC;
   margin: 0 0 0.5rem 1.8rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    margin-left: 1.5rem;
+  }
 `;
 
 const EduDesc = styled.p`
@@ -449,6 +533,11 @@ const EduDesc = styled.p`
   color: #8C8C8C;
   margin: 0 0 0 1.8rem;
   line-height: 1.5;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    margin-left: 1.5rem;
+  }
 `;
 
 /* =========================================
@@ -567,12 +656,11 @@ const About = () => {
                   <EduCard>
                     {item.period && <DateBadge>{item.period}</DateBadge>}
                     
-                    {/* TYPING ANIMATION IMPLEMENTED HERE */}
                     <EduTitle>
                       <FiBookOpen />
                       <TypingEffect 
                         text={item.degree} 
-                        delay={index * 1200} // Staggers the typing start for each card
+                        delay={index * 1200}
                         speed={40} 
                       />
                     </EduTitle>

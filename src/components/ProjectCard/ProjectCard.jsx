@@ -34,6 +34,10 @@ const ImageContainer = styled.div`
   aspect-ratio: 2.2 / 1;
   overflow: hidden;
   background: #1B1917;
+
+  @media (max-width: 768px) {
+    aspect-ratio: 1.8 / 1; /* Taller images on mobile so the screenshots are more visible */
+  }
 `;
 
 const ProjectImage = styled.img`
@@ -55,6 +59,11 @@ const ImageOverlay = styled.div`
   gap: 1rem;
   opacity: 0;
   transition: opacity 0.3s ease;
+
+  /* Disable the hover overlay on touch devices to prevent bugs */
+  @media (hover: none) {
+    display: none;
+  }
 `;
 
 const IconLink = styled(motion.a)`
@@ -78,6 +87,10 @@ const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+
+  @media (max-width: 480px) {
+    padding: 15px;
+  }
 `;
 
 const TopRow = styled.div`
@@ -97,6 +110,12 @@ const IconTile = styled.div`
   color: white;
   font-size: 1.1rem;
   background: linear-gradient(145deg, #E77C50, #AD482B);
+
+  @media (max-width: 480px) {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
 `;
 
 const Links = styled.div`
@@ -108,6 +127,8 @@ const ExternalLink = styled(motion.a)`
   color: #92877D;
   font-size: 1.2rem;
   transition: color 0.2s;
+  padding: 5px; /* Larger touch target on mobile */
+  margin: -5px;
 
   &:hover {
     color: #D96D42;
@@ -121,6 +142,10 @@ const Title = styled.h3`
   color: #F0E8DE;
   margin: 0 0 8px 0;
   line-height: 1.25;
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 `;
 
 const Description = styled.p`
@@ -130,6 +155,11 @@ const Description = styled.p`
   line-height: 1.65;
   margin: 0 0 14px 0;
   flex: 1;
+
+  @media (max-width: 480px) {
+    font-size: 11.5px;
+    margin: 0 0 12px 0;
+  }
 `;
 
 const Tags = styled.div`
@@ -146,6 +176,11 @@ const Tag = styled.span`
   border: 1px solid #74412E;
   padding: 4px 10px;
   border-radius: 999px;
+
+  @media (max-width: 480px) {
+    font-size: 9px;
+    padding: 3px 8px;
+  }
 `;
 
 const FeaturesSection = styled.div`
@@ -209,7 +244,6 @@ const ProjectCard = ({ project, index }) => {
     return `/assets/images/projects/${project.image}`;
   };
 
-  // Map the icon string to the actual component
   const renderIcon = () => {
     switch (project.icon) {
       case 'briefcase': return <FiBriefcase />;
@@ -226,7 +260,6 @@ const ProjectCard = ({ project, index }) => {
       whileHover={{ y: -5 }}
     >
       <ImageContainer>
-        {/* Added lazy loading here */}
         <ProjectImage
           src={getImageSrc()}
           alt={project.title}

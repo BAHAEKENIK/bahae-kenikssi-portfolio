@@ -25,6 +25,9 @@ const TimelineContainer = styled.div`
     @media (max-width: 768px) {
       left: 16px;
     }
+    @media (max-width: 480px) {
+      left: 10px;
+    }
   }
 `;
 
@@ -35,6 +38,11 @@ const TimelineItem = styled(motion.div)`
 
   @media (max-width: 768px) {
     padding-left: 45px;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 480px) {
+    padding-left: 32px;
+    margin-bottom: 1.5rem;
   }
 `;
 
@@ -46,7 +54,7 @@ const TimelineDot = styled(motion.div)`
   height: 16px;
   border-radius: 50%;
   background: #D96D42;
-  border: 3px solid #0C0B0A; /* Creates a cutout effect against the line */
+  border: 3px solid #0C0B0A;
   z-index: 2;
   box-shadow: 0 0 12px rgba(217, 109, 66, 0.5);
 
@@ -54,6 +62,11 @@ const TimelineDot = styled(motion.div)`
     left: 9px;
     width: 14px;
     height: 14px;
+  }
+  @media (max-width: 480px) {
+    left: 4px; /* Centers the 14px dot on the 2px line at 10px left */
+    top: 20px;
+    border-width: 2px;
   }
 `;
 
@@ -64,15 +77,23 @@ const TimelineContent = styled(motion.div)`
   padding: 1.5rem 2rem;
   transition: all 0.3s ease;
   position: relative;
+  word-break: break-word; /* Prevents long words from breaking out of the card */
 
-  &:hover {
-    border-color: #D96D42;
-    transform: translateX(5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(217, 109, 66, 0.1);
+  /* Hover effect only applied on devices that actually support hovering */
+  @media (hover: hover) {
+    &:hover {
+      border-color: #D96D42;
+      transform: translateX(5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(217, 109, 66, 0.1);
+    }
   }
 
   @media (max-width: 768px) {
     padding: 1.2rem 1.5rem;
+  }
+  @media (max-width: 480px) {
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
   }
 `;
 
@@ -87,6 +108,12 @@ const TimelineDate = styled.span`
   font-weight: 700;
   margin-bottom: 1rem;
   letter-spacing: 0.5px;
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 0.8rem;
+  }
 `;
 
 const TimelineTitle = styled.h3`
@@ -96,6 +123,10 @@ const TimelineTitle = styled.h3`
   color: #F0E8DE;
   margin: 0 0 0.4rem 0;
   line-height: 1.3;
+
+  @media (max-width: 480px) {
+    font-size: 1.15rem;
+  }
 `;
 
 const TimelineSubtitle = styled.h4`
@@ -104,6 +135,11 @@ const TimelineSubtitle = styled.h4`
   color: #F18A5B;
   margin: 0 0 0.8rem 0;
   font-weight: 500;
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+  }
 `;
 
 const TimelineDescription = styled.p`
@@ -112,6 +148,10 @@ const TimelineDescription = styled.p`
   font-size: 0.85rem;
   line-height: 1.6;
   margin: 0;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 /* =========================================
@@ -166,7 +206,7 @@ const Timeline = () => {
           <TimelineItem key={index} variants={itemVariants}>
             <TimelineDot variants={dotVariants} />
             
-            <TimelineContent whileHover={{ scale: 1.01 }}>
+            <TimelineContent>
               {item.period && <TimelineDate>{item.period}</TimelineDate>}
               <TimelineTitle>{item.degree}</TimelineTitle>
               <TimelineSubtitle>{item.school}</TimelineSubtitle>

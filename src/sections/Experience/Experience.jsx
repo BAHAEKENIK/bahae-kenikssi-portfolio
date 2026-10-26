@@ -10,16 +10,16 @@ const experienceData = [
     title: "Stagiaire Développeur Full Stack",
     company: "Hutchinson Maroc",
     location: "Tanger, Maroc",
-    period: "Avril 2026 - Présent",
-    description: "Participation au développement et à la maintenance des applications internes de l'entreprise. Travail sur des fonctionnalités full stack avec Spring Boot et Angular, en collaboration avec l'équipe IT.",
+    period: "Avril 2026 - Juillet 2026",
+    description: "Participation au développement et à la maintenance des applications internes de l'entreprise. Travail sur des fonctionnalités full stack avec React et Spring Boot, en collaboration avec l'équipe IT.",
     responsibilities: [
-      "Développement et maintenance d'applications full-stack avec Angular, Spring Boot et Django",
+      "Développement et maintenance d'applications full-stack avec React et Spring Boot",
       "Conception et gestion de bases de données relationnelles avec SQL Server et MySQL",
       "Déploiement local d'applications avec configuration serveur et mise en place de l'environnement",
       "Création de diagrammes UML pour l'architecture système et la conception d'applications",
       "Débogage et optimisation du code à l'aide d'outils d'IA comme Claude et Codex"
     ],
-    technologies: ["Spring Boot", "Angular", "Django", "SQL Server", "MySQL", "UML", "Git"]
+    technologies: ["Spring Boot", "React", "SQL Server", "MySQL", "UML", "Git"]
   },
   {
     id: 2,
@@ -69,7 +69,10 @@ const ExperienceContainer = styled.section`
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 5rem 1rem;
+    padding: 5rem 1.5rem;
+  }
+  @media (max-width: 480px) {
+    padding: 4rem 1rem;
   }
 `;
 
@@ -102,6 +105,10 @@ const Container = styled.div`
 const SectionHeader = styled(motion.div)`
   text-align: center;
   margin-bottom: 5rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 3.5rem;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -129,6 +136,14 @@ const SectionTitle = styled.h2`
   @media (max-width: 768px) {
     font-size: 2.8rem;
   }
+  @media (max-width: 480px) {
+    font-size: 2.2rem;
+    
+    &::after {
+      width: 90px;
+      bottom: -12px;
+    }
+  }
 `;
 
 /* --- TIMELINE LAYOUT --- */
@@ -148,6 +163,9 @@ const TimelineContainer = styled.div`
   }
 
   @media (max-width: 768px) {
+    padding-left: 2rem;
+  }
+  @media (max-width: 480px) {
     padding-left: 1.5rem;
   }
 `;
@@ -184,10 +202,18 @@ const TimelineItem = styled(motion.div)`
 
   @media (max-width: 768px) {
     &::before {
-      left: -1.85rem;
+      left: -2.35rem;
     }
     &::after {
       display: none;
+    }
+  }
+  @media (max-width: 480px) {
+    margin-bottom: 2rem;
+    &::before {
+      left: -1.85rem;
+      width: 10px;
+      height: 10px;
     }
   }
 `;
@@ -212,6 +238,9 @@ const Card = styled.div`
   @media (max-width: 768px) {
     padding: 1.5rem;
   }
+  @media (max-width: 480px) {
+    padding: 1.2rem;
+  }
 `;
 
 const CardHeader = styled.div`
@@ -229,6 +258,7 @@ const CardHeader = styled.div`
 
 const TitleGroup = styled.div`
   flex: 1;
+  width: 100%;
 `;
 
 const JobTitle = styled.h3`
@@ -238,6 +268,11 @@ const JobTitle = styled.h3`
   color: #F0E8DC;
   margin: 0 0 0.4rem 0;
   line-height: 1.2;
+  word-break: break-word;
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const CompanyName = styled.div`
@@ -249,6 +284,7 @@ const CompanyName = styled.div`
   letter-spacing: 1px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap; /* Allows long names to wrap safely */
   gap: 0.5rem;
 `;
 
@@ -272,6 +308,7 @@ const MetaGroup = styled.div`
   @media (max-width: 768px) {
     align-items: flex-start;
     flex-direction: row;
+    flex-wrap: wrap; /* Prevents overlapping on narrow screens */
     gap: 1rem;
     margin-top: 0.5rem;
   }
@@ -283,9 +320,15 @@ const MetaItem = styled.div`
   gap: 0.5rem;
   color: #C5BDB4;
   font-size: 0.85rem;
+  word-break: break-word;
 
   svg {
     color: #D97850;
+    flex-shrink: 0; /* Keeps icon from squishing */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
   }
 `;
 
@@ -294,6 +337,10 @@ const Description = styled.p`
   font-size: 0.95rem;
   line-height: 1.7;
   margin-bottom: 1.5rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const List = styled.ul`
@@ -319,6 +366,11 @@ const ListItem = styled.li`
     line-height: 1;
     top: -1px;
   }
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+  }
 `;
 
 const TechStack = styled.div`
@@ -339,6 +391,11 @@ const TechTag = styled.span`
   &:hover {
     border-color: #D97850;
     color: #D97850;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
   }
 `;
 

@@ -82,15 +82,22 @@ const Card = styled(motion.div)`
 
 const ImageContainer = styled.div`
   position: relative;
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 2 / 1; /* Better for landscape certificates */
   overflow: hidden;
   background: #1B1917;
+  border-bottom: 1px solid #292725;
+
+  @media (max-width: 768px) {
+    aspect-ratio: 2.2 / 1; /* Adjust slightly for mobile */
+  }
 `;
 
 const CertificateImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.5s ease;
 `;
 
@@ -104,6 +111,11 @@ const ImageOverlay = styled.div`
   justify-content: center;
   opacity: 0;
   transition: opacity 0.3s ease;
+
+  /* Disable overlay on touch devices */
+  @media (hover: none) {
+    display: none;
+  }
 `;
 
 const ViewButton = styled(motion.button)`
@@ -130,6 +142,10 @@ const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+
+  @media (max-width: 480px) {
+    padding: 1.2rem;
+  }
 `;
 
 const TopRow = styled.div`
@@ -138,6 +154,10 @@ const TopRow = styled.div`
   justify-content: space-between;
   margin-bottom: 1rem;
   gap: 1rem;
+
+  @media (max-width: 480px) {
+    gap: 0.6rem;
+  }
 `;
 
 const Title = styled.h3`
@@ -148,7 +168,12 @@ const Title = styled.h3`
   margin: 0;
   line-height: 1.4;
   flex: 1;
-  min-height: 3rem; /* Prevents layout jump while typing */
+  min-height: 3.2rem; /* Prevents layout jump while typing */
+
+  @media (max-width: 480px) {
+    font-size: 1.05rem;
+    min-height: 2.8rem;
+  }
 `;
 
 const IconTile = styled.div`
@@ -162,6 +187,12 @@ const IconTile = styled.div`
   color: #FFF;
   font-size: 1.2rem;
   flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
 `;
 
 const Issuer = styled.div`
@@ -179,6 +210,11 @@ const MetaInfo = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 1rem;
+
+  @media (max-width: 480px) {
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
 `;
 
 const MetaItem = styled.div`
@@ -203,6 +239,11 @@ const Description = styled.p`
   -webkit-box-orient: vertical;
   overflow: hidden;
   flex: 1;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
 `;
 
 const Skills = styled.div`
@@ -210,6 +251,10 @@ const Skills = styled.div`
   flex-wrap: wrap;
   gap: 0.4rem;
   margin-bottom: 1.2rem;
+
+  @media (max-width: 480px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const SkillTag = styled.span`
@@ -219,6 +264,11 @@ const SkillTag = styled.span`
   padding: 0.2rem 0.6rem;
   border-radius: 15px;
   font-size: 0.7rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+  }
 `;
 
 const Actions = styled.div`
@@ -227,6 +277,7 @@ const Actions = styled.div`
   border-top: 1px solid #49372D;
   padding-top: 1rem;
   margin-top: auto;
+  flex-wrap: wrap; /* Allows buttons to stack if needed on tiny screens */
 `;
 
 const ActionButton = styled(motion.button)`
@@ -245,11 +296,17 @@ const ActionButton = styled(motion.button)`
   flex: 1;
   text-decoration: none;
   transition: all 0.3s ease;
+  white-space: nowrap;
 
   &:hover {
     background: ${props => (props.primary ? '#F18A5B' : 'rgba(217, 109, 66, 0.1)')};
     border-color: #F18A5B;
     transform: translateY(-2px);
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
   }
 `;
 

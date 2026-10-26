@@ -67,7 +67,10 @@ const SkillsContainer = styled.section`
   cursor: default;
 
   @media (max-width: 768px) {
-    padding: 5rem 1rem;
+    padding: 5rem 1.5rem;
+  }
+  @media (max-width: 480px) {
+    padding: 4rem 1rem;
   }
 `;
 
@@ -100,6 +103,10 @@ const Header = styled.div`
   max-width: 800px;
   margin: 0 auto 4rem;
   text-align: center;
+
+  @media (max-width: 480px) {
+    margin-bottom: 2.5rem;
+  }
 `;
 
 const Eyebrow = styled.div`
@@ -120,6 +127,13 @@ const Eyebrow = styled.div`
     height: 1px;
     background: #49372D;
   }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    gap: 10px;
+    &::before, &::after { width: 25px; }
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -129,6 +143,10 @@ const SectionTitle = styled.h2`
   margin: 0;
   letter-spacing: -1px;
   color: #F0E8DE;
+
+  @media (max-width: 480px) {
+    font-size: 28px;
+  }
 `;
 
 const Underline = styled.div`
@@ -158,6 +176,11 @@ const IntroText = styled.p`
   color: #C8C0B7;
   font-size: 0.95rem;
   line-height: 1.7;
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    padding: 0 0.5rem;
+  }
 `;
 
 /* --- GRID & CARDS --- */
@@ -210,6 +233,13 @@ const CardHeader = styled.div`
     background-position: right 42%;
     z-index: 0;
   }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 45px minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px 16px 14px;
+    min-height: auto;
+  }
 `;
 
 const CategoryIcon = styled.div`
@@ -225,6 +255,13 @@ const CategoryIcon = styled.div`
   font-size: 1.7rem;
   background: linear-gradient(145deg, #F18A5B, #B95030);
   box-shadow: 0 5px 20px rgba(217, 109, 66, 0.2);
+
+  @media (max-width: 480px) {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+    border-radius: 10px;
+  }
 `;
 
 const CategoryInfo = styled.div`
@@ -241,6 +278,12 @@ const CategoryTitle = styled.h3`
   font-weight: 700;
   color: #F0E8DE;
   margin: 0 0 6px 0;
+  padding-right: 80px; /* Prevents overlapping with the absolute TechCount badge */
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+    padding-right: 60px;
+  }
 `;
 
 const CategoryDesc = styled.p`
@@ -249,6 +292,11 @@ const CategoryDesc = styled.p`
   line-height: 1.5;
   margin: 0;
   max-width: 320px;
+
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+    max-width: 100%;
+  }
 `;
 
 const TechCount = styled.span`
@@ -259,12 +307,22 @@ const TechCount = styled.span`
   font-size: 0.75rem;
   font-weight: 500;
   z-index: 1;
+
+  @media (max-width: 480px) {
+    top: 16px;
+    right: 16px;
+    font-size: 0.65rem;
+  }
 `;
 
 const SkillsList = styled.div`
   padding: 16px 24px 24px;
   position: relative;
   z-index: 1;
+
+  @media (max-width: 480px) {
+    padding: 12px 16px 16px;
+  }
 `;
 
 /* --- FOOTER SIGNATURE --- */
@@ -275,6 +333,12 @@ const Signature = styled.div`
   font-size: 1.5rem;
   font-style: italic;
   text-align: right;
+
+  @media (max-width: 768px) {
+    margin: 2.5rem auto 0;
+    text-align: center;
+    font-size: 1.2rem;
+  }
 `;
 
 /* =========================================

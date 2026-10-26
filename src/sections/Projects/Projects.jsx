@@ -4,7 +4,6 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import styled from 'styled-components';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 
-// Added icons to the data so we can render them in the card
 const projectsData = [
   {
     id: 1,
@@ -117,7 +116,10 @@ const ProjectsContainer = styled.section`
   cursor: default;
 
   @media (max-width: 768px) {
-    padding: 5rem 1rem;
+    padding: 5rem 1.5rem;
+  }
+  @media (max-width: 480px) {
+    padding: 4rem 1rem;
   }
 `;
 
@@ -151,6 +153,10 @@ const Header = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 4rem;
+
+  @media (max-width: 480px) {
+    margin-bottom: 2.5rem;
+  }
 `;
 
 const HeadingDecoration = styled.div`
@@ -158,12 +164,20 @@ const HeadingDecoration = styled.div`
   align-items: center;
   justify-content: center;
   gap: 28px;
+
+  @media (max-width: 580px) {
+    gap: 15px;
+  }
 `;
 
 const HeadingLine = styled.span`
   width: 38px;
   height: 1px;
   background: #D96D42;
+
+  @media (max-width: 580px) {
+    width: 25px;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -173,6 +187,11 @@ const SectionTitle = styled.h2`
   letter-spacing: -1px;
   margin: 0;
   color: #F0E8DE;
+  text-align: center;
+
+  @media (max-width: 480px) {
+    font-size: 28px;
+  }
 `;
 
 const HeadingUnderline = styled.div`
@@ -182,6 +201,11 @@ const HeadingUnderline = styled.div`
   border-top: 3px solid #D96D42;
   border-radius: 50%;
   transform: rotate(-5deg);
+
+  @media (max-width: 480px) {
+    width: 90px;
+    margin-top: 5px;
+  }
 `;
 
 /* --- FILTERS --- */
@@ -191,6 +215,11 @@ const FilterButtons = styled(motion.div)`
   justify-content: center;
   gap: 12px;
   margin-top: 2rem;
+
+  @media (max-width: 480px) {
+    gap: 8px;
+    margin-top: 1.5rem;
+  }
 `;
 
 const FilterButton = styled(motion.button)`
@@ -208,6 +237,11 @@ const FilterButton = styled(motion.button)`
     border-color: #D96D42;
     transform: translateY(-2px);
   }
+
+  @media (max-width: 480px) {
+    padding: 7px 14px;
+    font-size: 11px;
+  }
 `;
 
 /* --- GRID --- */
@@ -220,10 +254,12 @@ const ProjectsGrid = styled(motion.div)`
 
   @media (max-width: 900px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
   }
 
   @media (max-width: 580px) {
     grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
   }
 `;
 
@@ -231,6 +267,11 @@ const NoProjects = styled.div`
   text-align: center;
   color: #92877D;
   padding: 3rem;
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+  }
 `;
 
 /* =========================================

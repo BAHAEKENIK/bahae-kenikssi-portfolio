@@ -65,7 +65,7 @@ const FooterContainer = styled.footer`
   cursor: default;
 
   @media (max-width: 768px) {
-    padding: 4rem 1rem 1.5rem;
+    padding: 4rem 1.5rem 1.5rem;
   }
 `;
 
@@ -89,7 +89,7 @@ const FooterContent = styled.div`
 
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 3rem;
     text-align: center;
   }
 `;
@@ -99,6 +99,7 @@ const BrandSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  width: 100%;
 
   @media (max-width: 968px) {
     align-items: center;
@@ -123,6 +124,10 @@ const Tagline = styled.p`
   line-height: 1.6;
   max-width: 320px;
   margin: 0;
+
+  @media (max-width: 968px) {
+    margin: 0 auto;
+  }
 `;
 
 const SocialLinks = styled.div`
@@ -158,6 +163,7 @@ const LinksSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 
   @media (max-width: 968px) {
     align-items: center;
@@ -176,10 +182,6 @@ const FooterLinks = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-
-  @media (max-width: 968px) {
-    align-items: center;
-  }
 `;
 
 const FooterLink = styled(motion.a)`
@@ -204,6 +206,7 @@ const ContactSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 
   @media (max-width: 968px) {
     align-items: center;
@@ -232,6 +235,7 @@ const ContactItem = styled.a`
   svg {
     color: #D96D42;
     font-size: 1rem;
+    flex-shrink: 0;
   }
 `;
 
@@ -352,7 +356,7 @@ const Footer = () => {
               {t('footer.tagline') || "Développeur Full Stack passionné par la création d'expériences web exceptionnelles."}
             </Tagline>
             <SocialLinks>
-              {socialLinks.map((social, index) => (
+              {socialLinks.map((social) => (
                 <SocialLink
                   key={social.label}
                   href={social.url}
@@ -372,7 +376,7 @@ const Footer = () => {
           <LinksSection variants={fadeUp}>
             <SectionTitle>{t('footer.quickLinks') || 'Liens Rapides'}</SectionTitle>
             <FooterLinks>
-              {quickLinks.map((link, index) => (
+              {quickLinks.map((link) => (
                 <FooterLink
                   key={link.name}
                   href={link.href}

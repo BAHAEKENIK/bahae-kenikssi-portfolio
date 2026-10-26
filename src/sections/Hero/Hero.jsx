@@ -17,7 +17,11 @@ const HeroContainer = styled.section`
 
   @media (max-width: 968px) {
     flex-direction: column;
-    padding-top: 100px;
+    padding-top: 90px;
+    min-height: auto;
+  }
+  @media (max-width: 480px) {
+    padding-top: 80px;
   }
 `;
 
@@ -76,12 +80,23 @@ const HeroInner = styled.div`
     grid-template-columns: 1fr;
     text-align: center;
     padding-block: 60px;
+    gap: 50px;
+  }
+  @media (max-width: 480px) {
+    width: min(100% - 40px, 100%);
+    padding-block: 40px;
+    gap: 40px;
   }
 `;
 
 /* --- LEFT COLUMN (TEXT) --- */
 const TextContent = styled.div`
   max-width: 650px;
+  margin: 0 auto;
+
+  @media (max-width: 968px) {
+    max-width: 100%;
+  }
 `;
 
 const Eyebrow = styled(motion.p)`
@@ -126,6 +141,10 @@ const NameContainer = styled(motion.h1)`
 
   @media (max-width: 968px) {
     letter-spacing: -2px;
+  }
+  @media (max-width: 480px) {
+    font-size: clamp(36px, 10vw, 48px);
+    letter-spacing: -1.5px;
   }
 `;
 
@@ -172,12 +191,12 @@ const Role = styled(motion.div)`
   &::after {
     content: '';
     position: absolute;
-    left: 37%;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
     bottom: 0;
     width: 95px;
     height: 2px;
     background: #e97852;
-    transform: rotate(-2deg);
   }
 `;
 
@@ -191,6 +210,10 @@ const Description = styled(motion.p)`
 
   @media (max-width: 968px) {
     margin-inline: auto;
+  }
+  @media (max-width: 480px) {
+    font-size: 15px;
+    line-height: 1.7;
   }
 `;
 
@@ -233,6 +256,13 @@ const Button = styled(motion.a)`
     color: #f1e9e1;
     &:hover { background: rgba(233, 120, 82, 0.1); border-color: #e97852; transform: translateY(-2px); }
   }
+
+  @media (max-width: 480px) {
+    min-height: 45px;
+    padding: 0 18px;
+    font-size: 12px;
+    width: 100%;
+  }
 `;
 
 const Socials = styled(motion.div)`
@@ -268,6 +298,11 @@ const VisualContent = styled(motion.div)`
   justify-self: center;
   aspect-ratio: 0.96;
   isolation: isolate;
+
+  @media (max-width: 480px) {
+    width: 85%;
+    margin-top: 20px;
+  }
 `;
 
 const PortraitFrame = styled.div`
@@ -318,7 +353,13 @@ const HandwrittenNote = styled.div`
   transform: rotate(-7deg);
 
   @media (max-width: 968px) {
-    right: -10%;
+    right: -5%;
+    font-size: 28px;
+  }
+  @media (max-width: 480px) {
+    right: 0;
+    top: 10%;
+    font-size: 22px;
   }
 `;
 
@@ -327,6 +368,11 @@ const NoteArrow = styled.svg`
   height: 58px;
   margin-bottom: 6px;
   margin-left: -10px;
+  
+  @media (max-width: 480px) {
+    width: 50px;
+    height: 40px;
+  }
 `;
 
 const NoteUnderline = styled.i`
@@ -335,6 +381,10 @@ const NoteUnderline = styled.i`
   margin-top: 8px;
   background: #e97852;
   transform: rotate(-7deg);
+
+  @media (max-width: 480px) {
+    width: 50px;
+  }
 `;
 
 const DeveloperTag = styled.div`
@@ -357,6 +407,13 @@ const DeveloperTag = styled.div`
   span.icon {
     color: #e97852;
     font-size: 15px;
+  }
+
+  @media (max-width: 480px) {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: -10%;
+    font-size: 10px;
   }
 `;
 
@@ -591,7 +648,7 @@ const Hero = () => {
             <NoteUnderline />
           </HandwrittenNote>
 
-          {/* UPDATED DEVELOPER TAG WITH TYPING EFFECT */}
+          {/* DEVELOPER TAG WITH TYPING EFFECT */}
           <DeveloperTag>
             <span className="icon">&lt;/&gt;</span>
             <div style={{ position: 'relative' }}>
