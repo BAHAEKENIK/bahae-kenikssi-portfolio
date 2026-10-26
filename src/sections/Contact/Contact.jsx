@@ -1,276 +1,463 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import styled from 'styled-components';
 import { useContactForm } from '../../hooks/useContactForm';
 import { FiSend, FiUser, FiMail, FiMessageSquare, FiMapPin, FiPhone, FiLinkedin, FiGithub } from 'react-icons/fi';
 
+/* =========================================
+   CUSTOM CURSOR COMPONENT
+   ========================================= */
+const CustomCursor = () => {
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkPointer = window.matchMedia('(pointer: fine)');
+    setIsMobile(!checkPointer.matches);
+    const moveCursor = (e) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+    };
+    window.addEventListener('mousemove', moveCursor);
+    return () => window.removeEventListener('mousemove', moveCursor);
+  }, [cursorX, cursorY]);
+
+  if (isMobile) return null;
+
+  return (
+    <>
+      <motion.div
+        style={{
+          position: 'fixed', left: 0, top: 0, x: cursorXSpring, y: cursorYSpring,
+          translateX: '-50%', translateY: '-50%', width: '36px', height: '36px',
+          border: '1px solid rgba(217, 109, 66, 0.6)', borderRadius: '50%',
+          pointerEvents: 'none', zIndex: 9998, boxShadow: '0 0 15px rgba(217, 109, 66, 0.2)',
+        }}
+      />
+      <motion.div
+        style={{
+          position: 'fixed', left: 0, top: 0, x: cursorX, y: cursorY,
+          translateX: '-50%', translateY: '-50%', width: '6px', height: '6px',
+          backgroundColor: '#D96D42', borderRadius: '50%',
+          pointerEvents: 'none', zIndex: 9999,
+        }}
+      />
+    </>
+  );
+};
+
+/* =========================================
+   TYPEWRITER PLACEHOLDER COMPONENT
+   ========================================= */
+const TypingPlaceholder = ({ text, speed = 50, delay = 0 }) => {
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+    let timeout;
+    let interval;
+    let i = 0;
+
+    timeout = setTimeout(() => {
+      interval = setInterval(() => {
+        setDisplayedText(text.substring(0, i + 1));
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, speed);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeout);
+      if (interval) clearInterval(interval);
+    };
+  }, [text, speed, delay]);
+
+  return <span style={{ color: '#6b625b' }}>{displayedText}<motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.8, repeat: Infinity }}>|</motion.span></span>;
+};
+
+/* =========================================
+   STYLED COMPONENTS
+   ========================================= */
 const ContactContainer = styled.section`
-  min-height: 100vh;
-  padding: 5rem 2rem;
-  background: rgba(15, 23, 42, 0.9);
   position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  padding: 8rem 2rem;
+  background: #0C0B0A;
+  color: #F0E8DE;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  cursor: default;
 
   @media (max-width: 768px) {
-    padding: 3rem 1rem;
+    padding: 5rem 1rem;
+  }
+`;
+
+const BackgroundLayer = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: 
+    linear-gradient(90deg, rgba(12,11,10,0.12) 0%, rgba(12,11,10,0.45) 28%, rgba(12,11,10,0.88) 55%, #0C0B0A 100%),
+    linear-gradient(0deg, rgba(12,11,10,0.1) 0%, rgba(12,11,10,0.45) 42%, #0C0B0A 100%),
+    url('/assets/images/mountains-dark3.jpg');
+  background-size: cover, cover, auto 65%;
+  background-position: center, center, left bottom;
+  background-repeat: no-repeat;
+
+  @media (max-width: 968px) {
+    background-size: cover, cover, 150% auto;
   }
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 `;
 
-const SectionTitle = styled(motion.h2)`
-  font-family: 'Roboto Slab', serif;
-  font-size: 3rem;
+/* --- HEADER --- */
+const Header = styled.div`
+  max-width: 800px;
+  margin: 0 auto 4rem;
   text-align: center;
-  margin-bottom: 4rem;
+`;
+
+const Eyebrow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 1rem;
+  color: #F18A5B;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+
+  &::before, &::after {
+    content: '';
+    width: 44px;
+    height: 1px;
+    background: #49372D;
+  }
+`;
+
+const SectionTitle = styled.h2`
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -1px;
+  color: #F0E8DE;
+`;
+
+const Underline = styled.div`
   position: relative;
+  width: 112px;
+  height: 13px;
+  margin: 12px auto 18px;
+  border-top: 4px solid #D96D42;
+  border-radius: 50%;
+  transform: rotate(-3deg);
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-    border-radius: 2px;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
+    top: 3px;
+    left: 12px;
+    width: 85%;
+    border-top: 2px solid #F18A5B;
+    border-radius: 50%;
+    transform: rotate(-2deg);
   }
 `;
 
-const ContactContent = styled.div`
+/* --- GRID LAYOUT --- */
+const ContentGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.2fr;
   gap: 4rem;
   align-items: start;
 
-  @media (max-width: 968px) {
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
 `;
 
-const ContactInfo = styled(motion.div)`
+/* --- LEFT COLUMN (INFO) --- */
+const InfoColumn = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 2rem;
 `;
 
-const ContactSubtitle = styled.h3`
+const InfoSubtitle = styled.h3`
+  font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
-  color: #f8fafc;
+  color: #F0E8DE;
+  margin: 0 0 0.5rem 0;
+`;
+
+const InfoDesc = styled.p`
+  color: #C8C0B7;
+  font-size: 0.9rem;
+  line-height: 1.6;
   margin-bottom: 1rem;
 `;
 
-const ContactDescription = styled.p`
-  color: #cbd5e1;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-`;
-
-const ContactItems = styled.div`
+const InfoCards = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 `;
 
-const ContactItem = styled(motion.div)`
+const InfoCard = styled.a`
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 1.2rem;
+  padding: 1.2rem;
+  background: rgba(18, 17, 16, 0.92);
+  border: 1px solid #49372D;
   border-radius: 12px;
+  text-decoration: none;
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: #2563eb;
+    border-color: #D96D42;
     transform: translateX(5px);
+    background: rgba(30, 26, 24, 0.95);
   }
 `;
 
-const ContactIcon = styled.div`
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-  border-radius: 50%;
+const IconBox = styled.div`
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(145deg, #E77C50, #AD482B);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #FFF;
   font-size: 1.2rem;
   flex-shrink: 0;
 `;
 
-const ContactText = styled.div`
-  flex: 1;
+const InfoText = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-const ContactLabel = styled.div`
+const InfoLabel = styled.span`
+  color: #92877D;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: #f8fafc;
-  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.2rem;
 `;
 
-const ContactValue = styled.div`
-  color: #64748b;
-  font-size: 0.9rem;
+const InfoValue = styled.span`
+  color: #F0E8DE;
+  font-size: 0.95rem;
+  font-weight: 500;
 `;
 
-const SocialLinks = styled.div`
+const SocialsRow = styled.div`
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
 `;
 
-const SocialLink = styled(motion.a)`
-  width: 50px;
-  height: 50px;
-  background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+const SocialIcon = styled.a`
+  width: 45px;
+  height: 45px;
+  background: rgba(18, 17, 16, 0.92);
+  border: 1px solid #49372D;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #cbd5e1;
+  color: #C8C0B7;
+  font-size: 1.2rem;
   text-decoration: none;
   transition: all 0.3s ease;
 
   &:hover {
-    background: #2563eb;
-    color: white;
-    border-color: #2563eb;
+    background: #D96D42;
+    border-color: #D96D42;
+    color: #FFF;
     transform: translateY(-3px);
   }
 `;
 
-const ContactForm = styled(motion.form)`
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+const HandwrittenNote = styled.div`
+  font-family: 'Caveat', cursive;
+  font-size: 2.2rem;
+  color: #F18A5B;
+  transform: rotate(-5deg);
+  margin-top: 1rem;
+  text-align: right;
+  opacity: 0.8;
+`;
+
+/* --- RIGHT COLUMN (FORM) --- */
+const FormBox = styled(motion.form)`
+  background: rgba(18, 17, 16, 0.92);
+  border: 1px solid #49372D;
+  border-radius: 16px;
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  position: relative;
 
   @media (max-width: 768px) {
-    padding: 2rem;
+    padding: 1.5rem;
   }
 `;
 
-const FormGroup = styled(motion.div)`
+const FormGroup = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 `;
 
 const Label = styled.label`
-  font-weight: 600;
-  color: #f8fafc;
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #F0E8DE;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+
+  svg {
+    color: #D96D42;
+  }
+`;
+
+const InputWrapper = styled.div`
+  position: relative;
+  width: 100%;
 `;
 
 const Input = styled.input`
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  width: 100%;
+  background: rgba(12, 11, 10, 0.5);
+  border: 1px solid #49372D;
+  border-radius: 8px;
   padding: 1rem;
-  color: #f8fafc;
-  font-size: 1rem;
+  color: #F0E8DE;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
   transition: all 0.3s ease;
 
   &:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-  }
-
-  &::placeholder {
-    color: #64748b;
+    border-color: #D96D42;
+    box-shadow: 0 0 0 3px rgba(217, 109, 66, 0.15);
   }
 `;
 
 const TextArea = styled.textarea`
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  width: 100%;
+  background: rgba(12, 11, 10, 0.5);
+  border: 1px solid #49372D;
+  border-radius: 8px;
   padding: 1rem;
-  color: #f8fafc;
-  font-size: 1rem;
-  min-height: 150px;
+  color: #F0E8DE;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  min-height: 140px;
   resize: vertical;
   transition: all 0.3s ease;
-  font-family: 'Raleway', sans-serif;
 
   &:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-  }
-
-  &::placeholder {
-    color: #64748b;
+    border-color: #D96D42;
+    box-shadow: 0 0 0 3px rgba(217, 109, 66, 0.15);
   }
 `;
 
+// A hack to show the typing placeholder behind the input
+const PlaceholderOverlay = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  z-index: 1;
+`;
+
+const TextAreaPlaceholderOverlay = styled(PlaceholderOverlay)`
+  top: 1rem;
+  transform: none;
+`;
+
 const SubmitButton = styled(motion.button)`
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-  color: white;
+  background: #D96D42;
+  color: #FFF;
   border: none;
-  border-radius: 12px;
-  padding: 1rem 2rem;
-  font-size: 1rem;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  margin-top: 0.5rem;
   transition: all 0.3s ease;
-  margin-top: 1rem;
 
   &:hover:not(:disabled) {
+    background: #F18A5B;
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 8px 20px rgba(217, 109, 66, 0.3);
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.7;
     cursor: not-allowed;
-    transform: none;
   }
 `;
 
 const SuccessMessage = styled(motion.div)`
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid rgba(34, 197, 94, 0.3);
-  color: #22c55e;
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: #34D399;
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: 8px;
   text-align: center;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 500;
 `;
 
 const ErrorMessage = styled(motion.div)`
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #ef4444;
+  color: #EF4444;
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: 8px;
   text-align: center;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 500;
 `;
 
+/* =========================================
+   MAIN COMPONENT
+   ========================================= */
 const Contact = () => {
   const { t } = useTranslation();
   const { formData, loading, success, error, handleChange, handleSubmit } = useContactForm();
@@ -278,235 +465,209 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <FiMapPin />,
-      label: 'Location',
-      value: 'Rabat, Morocco',
+      label: t('contact.info.location') || 'Localisation',
+      value: t('contact.info.locationValue') || 'Rabat, Maroc',
       link: 'https://www.google.com/maps/place/Rabat,+Morocco'
     },
     {
       icon: <FiMail />,
-      label: 'Email',
-      value: 'bahaekenik@email.com',
-      link: 'mailto:bahaekenik@email.com'
+      label: t('contact.info.email') || 'Email',
+      value: 'bahaekenik@gmail.com',
+      link: 'mailto:bahaekenik@gmail.com'
     },
     {
       icon: <FiPhone />,
-      label: 'Phone',
+      label: t('contact.info.phone') || 'Téléphone',
       value: '+212 6 04 34 16 69',
       link: 'tel:+212604341669'
     }
   ];
 
   const socialLinks = [
-    {
-      icon: <FiLinkedin />,
-      label: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/bahae-kenikssi-40414021b/'
-    },
-    {
-      icon: <FiGithub />,
-      label: 'GitHub',
-      url: 'https://github.com/BAHAEKENIK'
-    }
+    { icon: <FiLinkedin />, url: 'https://www.linkedin.com/in/bahae-kenikssi-40414021b/' },
+    { icon: <FiGithub />, url: 'https://github.com/BAHAEKENIK' }
   ];
 
-  const containerVariants = {
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
+  const staggerContainer = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6
-      }
-    }
-  };
-
-  const formVariants = {
-    hidden: { scale: 0.9, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        delay: 0.3
-      }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
   };
 
   return (
     <ContactContainer id="contact">
-      <Container>
-        <SectionTitle
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {t('contact.title')}
-        </SectionTitle>
+      <CustomCursor />
+      <BackgroundLayer />
 
-        <ContactContent>
-          <ContactInfo
-            variants={containerVariants}
+      <Container>
+        <Header>
+          <Eyebrow>Me Contacter</Eyebrow>
+          <SectionTitle>{t('contact.title') || 'Restons en Contact'}</SectionTitle>
+          <Underline />
+        </Header>
+
+        <ContentGrid>
+          {/* LEFT COLUMN - INFO */}
+          <InfoColumn
+            variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
             <div>
-              <ContactSubtitle>{t('contact.subtitle')}</ContactSubtitle>
-              <ContactDescription>
-                I'm always interested in new opportunities and collaborations. 
-                Whether you have a project in mind or just want to say hello, 
-                feel free to get in touch!
-              </ContactDescription>
+              <InfoSubtitle as={motion.h3} variants={fadeUp}>
+                {t('contact.subtitle') || "Discutons de votre prochain projet."}
+              </InfoSubtitle>
+              <InfoDesc as={motion.p} variants={fadeUp}>
+                {t('contact.description') || "Que vous ayez une idée en tête ou que vous souhaitiez simplement dire bonjour, n'hésitez pas à me contacter."}
+              </InfoDesc>
             </div>
 
-            <ContactItems>
+            <InfoCards>
               {contactInfo.map((item, index) => (
-                <ContactItem
-                  key={item.label}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ delay: index * 0.1 }}
+                <InfoCard 
+                  key={index} 
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  as={motion.a}
+                  variants={fadeUp}
                 >
-                  <ContactIcon>
-                    {item.icon}
-                  </ContactIcon>
-                  <ContactText>
-                    <ContactLabel>{item.label}</ContactLabel>
-                    <ContactValue>
-                      {item.link ? (
-                        <a 
-                          href={item.link} 
-                          style={{ color: 'inherit', textDecoration: 'none' }}
-                        >
-                          {item.value}
-                        </a>
-                      ) : (
-                        item.value
-                      )}
-                    </ContactValue>
-                  </ContactText>
-                </ContactItem>
+                  <IconBox>{item.icon}</IconBox>
+                  <InfoText>
+                    <InfoLabel>{item.label}</InfoLabel>
+                    <InfoValue>{item.value}</InfoValue>
+                  </InfoText>
+                </InfoCard>
               ))}
-            </ContactItems>
+            </InfoCards>
 
-            <div>
-              <ContactLabel style={{ marginBottom: '1rem' }}>
-                Follow Me
-              </ContactLabel>
-              <SocialLinks>
+            <motion.div variants={fadeUp}>
+              <InfoLabel style={{ marginBottom: '0.8rem', display: 'block' }}>
+                {t('contact.followMe') || 'Suivez-moi'}
+              </InfoLabel>
+              <SocialsRow>
                 {socialLinks.map((social, index) => (
-                  <SocialLink
-                    key={social.label}
-                    href={social.url}
-                    target="_blank"
+                  <SocialIcon 
+                    key={index} 
+                    href={social.url} 
+                    target="_blank" 
                     rel="noopener noreferrer"
-                    title={social.label}
-                    variants={itemVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
+                    as={motion.a}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
                   >
                     {social.icon}
-                  </SocialLink>
+                  </SocialIcon>
                 ))}
-              </SocialLinks>
-            </div>
-          </ContactInfo>
+              </SocialsRow>
+            </motion.div>
 
-          <ContactForm
-            variants={formVariants}
+            <HandwrittenNote as={motion.div} variants={fadeUp}>
+              Build.<br/>Improve.
+            </HandwrittenNote>
+          </InfoColumn>
+
+          {/* RIGHT COLUMN - FORM */}
+          <FormBox
+            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
             onSubmit={handleSubmit}
           >
-            <FormGroup variants={itemVariants}>
+            <FormGroup>
               <Label htmlFor="name">
-                <FiUser size={16} style={{ marginRight: '0.5rem' }} />
-                {t('contact.name')}
+                <FiUser /> {t('contact.name') || 'Votre Nom'}
               </Label>
-              <Input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder={t('contact.name')}
-                required
-                disabled={loading}
-              />
+              <InputWrapper>
+                {!formData.name && (
+                  <PlaceholderOverlay>
+                    <TypingPlaceholder text="Entrez votre nom complet..." delay={1000} />
+                  </PlaceholderOverlay>
+                )}
+                <Input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+              </InputWrapper>
             </FormGroup>
 
-            <FormGroup variants={itemVariants}>
+            <FormGroup>
               <Label htmlFor="email">
-                <FiMail size={16} style={{ marginRight: '0.5rem' }} />
-                {t('contact.email')}
+                <FiMail /> {t('contact.email') || 'Votre Email'}
               </Label>
-              <Input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder={t('contact.email')}
-                required
-                disabled={loading}
-              />
+              <InputWrapper>
+                {!formData.email && (
+                  <PlaceholderOverlay>
+                    <TypingPlaceholder text="Entrez votre adresse email..." delay={2000} />
+                  </PlaceholderOverlay>
+                )}
+                <Input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+              </InputWrapper>
             </FormGroup>
 
-            <FormGroup variants={itemVariants}>
+            <FormGroup>
               <Label htmlFor="message">
-                <FiMessageSquare size={16} style={{ marginRight: '0.5rem' }} />
-                {t('contact.message')}
+                <FiMessageSquare /> {t('contact.message') || 'Votre Message'}
               </Label>
-              <TextArea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder={t('contact.message')}
-                required
-                disabled={loading}
-              />
+              <InputWrapper>
+                {!formData.message && (
+                  <TextAreaPlaceholderOverlay>
+                    <TypingPlaceholder text="Écrivez votre message ici..." delay={3000} />
+                  </TextAreaPlaceholderOverlay>
+                )}
+                <TextArea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+              </InputWrapper>
             </FormGroup>
 
             {success && (
               <SuccessMessage
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
               >
-                {t('contact.success')}
+                {t('contact.success') || 'Message envoyé avec succès !'}
               </SuccessMessage>
             )}
 
             {error && (
               <ErrorMessage
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
               >
-                {t('contact.error')}
+                {error}
               </ErrorMessage>
             )}
 
             <SubmitButton
               type="submit"
               disabled={loading}
-              whileHover={!loading ? { scale: 1.05 } : {}}
-              whileTap={!loading ? { scale: 0.95 } : {}}
+              whileHover={!loading ? { scale: 1.02 } : {}}
+              whileTap={!loading ? { scale: 0.98 } : {}}
             >
               {loading ? (
                 <>
@@ -516,17 +677,17 @@ const Contact = () => {
                   >
                     <FiSend />
                   </motion.div>
-                  {t('contact.sending')}
+                  {t('contact.sending') || 'Envoi en cours...'}
                 </>
               ) : (
                 <>
                   <FiSend />
-                  {t('contact.send')}
+                  {t('contact.send') || 'Envoyer le Message'}
                 </>
               )}
             </SubmitButton>
-          </ContactForm>
-        </ContactContent>
+          </FormBox>
+        </ContentGrid>
       </Container>
     </ContactContainer>
   );

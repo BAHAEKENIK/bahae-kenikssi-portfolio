@@ -1,507 +1,614 @@
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
-import styled, { keyframes } from 'styled-components';
-import ProfileImage from '../../components/ProfileImage/ProfileImage';
-import AnimatedText from '../../components/AnimatedText/AnimatedText';
-import { Button } from '../../styles/GlobalStyles';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import styled from 'styled-components';
 
 const HeroContainer = styled.section`
-  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #111213;
+  color: #f1e9e1;
+  font-family: 'Manrope', sans-serif;
   display: flex;
   align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  padding: 0 2rem;
+  cursor: default;
 
-  @media (max-width: 768px) {
-    padding: 5.5rem 1rem 0;
-    text-align: center;
-    min-height: 90vh;
-  }
-
-  @media (max-width: 480px) {
-    padding: 5rem 0.5rem 0;
-    min-height: 85vh;
+  @media (max-width: 968px) {
+    flex-direction: column;
+    padding-top: 100px;
   }
 `;
 
-const HeroContent = styled.div`
+/* --- BACKGROUND LAYERS --- */
+const BackgroundLayer = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background-image: 
+    linear-gradient(90deg, rgba(17,18,19,0.08) 0%, rgba(17,18,19,0.48) 35%, rgba(17,18,19,0.94) 65%, #111213 100%),
+    linear-gradient(0deg, rgba(8,9,9,0.08) 0%, rgba(8,9,9,0.35) 40%, #111213 95%),
+    url('/assets/images/mountains-dark.jpg');
+  background-position: center, center, left bottom;
+  background-size: cover, cover, 78% auto;
+  background-repeat: no-repeat;
+
+  @media (max-width: 968px) {
+    background-size: cover, cover, 150% auto;
+  }
+`;
+
+const CharcoalTexture = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.1;
+  background-image: url('/assets/images/Charcoal.jpg');
+  background-size: cover;
+  mix-blend-mode: overlay;
+`;
+
+const WarmEdge = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  z-index: -1;
+  background-image: url('/assets/images/Warm_edge_lighting.jpg');
+  background-size: cover;
+  box-shadow: -8px 0 30px rgba(233, 120, 82, 0.15);
+`;
+
+/* --- MAIN LAYOUT --- */
+const HeroInner = styled.div`
+  width: min(100% - 64px, 1285px);
+  margin-inline: auto;
+  padding-block: 120px 80px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   align-items: center;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
+  gap: clamp(48px, 7vw, 110px);
 
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
-    gap: 2rem;
     text-align: center;
-  }
-
-  @media (max-width: 480px) {
-    gap: 1.5rem;
+    padding-block: 60px;
   }
 `;
 
-const TextContent = styled(motion.div)`
+/* --- LEFT COLUMN (TEXT) --- */
+const TextContent = styled.div`
+  max-width: 650px;
+`;
+
+const Eyebrow = styled(motion.p)`
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-
-  @media (max-width: 968px) {
-    order: 2;
-    margin-top: 1rem;
-  }
-
-  @media (max-width: 480px) {
-    gap: 1rem;
-    margin-top: 0.5rem;
-  }
-`;
-
-const Greeting = styled(motion.p)`
-  font-size: 1.5rem;
-  color: #64748b;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-
-  @media (max-width: 968px) {
-    font-size: 1.3rem;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.1rem;
-    margin-bottom: 0.25rem;
-  }
-`;
-
-const Name = styled(motion.h1)`
-  font-family: 'Roboto Slab', serif;
-  font-size: 4rem;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-
-  @media (max-width: 968px) {
-    font-size: 3rem;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-`;
-
-const Title = styled(motion.h2)`
-  font-size: 2rem;
-  color: #2563eb;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-
-  @media (max-width: 968px) {
-    font-size: 1.8rem;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-  }
-`;
-
-const Description = styled(motion.p)`
-  font-size: 1.2rem;
-  color: #cbd5e1;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  max-width: 500px;
-
-  @media (max-width: 968px) {
-    max-width: 100%;
-    margin: 0 auto 2rem;
-    font-size: 1.1rem;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 1.1rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1rem;
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
-  }
-`;
-
-const ButtonGroup = styled(motion.div)`
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 19px;
+  color: #a7a09a;
+  -webkit-text-fill-color: #a7a09a;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2.5px;
 
   @media (max-width: 968px) {
     justify-content: center;
   }
 
-  @media (max-width: 480px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-  }
-`;
-
-const ImageContainer = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-
-  @media (max-width: 968px) {
-    order: -1;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  @media (max-width: 768px) {
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  @media (max-width: 480px) {
-    margin-top: 2rem;
-    margin-bottom: 0.5rem;
-  }
-`;
-
-// Orbit animations
-const orbitRotate = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-`;
-
-const orbitRotateReverse = keyframes`
-  0% {
-    transform: rotate(360deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-`;
-
-const pulse = keyframes`
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-`;
-
-// Main orbit container
-const OrbitContainer = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 320px;
-  height: 320px;
-  border-radius: 50%;
-
-  @media (max-width: 968px) {
-    width: 280px;
-    height: 280px;
-  }
-
-  @media (max-width: 768px) {
-    width: 260px;
-    height: 260px;
-  }
-
-  @media (max-width: 480px) {
-    width: 220px;
-    height: 220px;
-  }
-`;
-
-// Inner orbit - close to the image border
-const InnerOrbit = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  background: 
-    radial-gradient(circle at 30% 30%, #2563eb22, transparent 50%),
-    conic-gradient(from 0deg, #2563eb, #7c3aed, #f59e0b, #ef4444, #2563eb);
-  background-origin: border-box;
-  background-clip: border-box;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) padding-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  padding: 3px;
-  animation: ${orbitRotate} 8s linear infinite;
-
   &::before {
     content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border-radius: 50%;
-    background: conic-gradient(from 180deg, #7c3aed, #f59e0b, #ef4444, #2563eb, #7c3aed);
-    animation: ${orbitRotateReverse} 6s linear infinite;
-    z-index: -1;
-    opacity: 0.7;
+    display: block;
+    width: 27px;
+    height: 1px;
+    background: #e97852;
   }
 `;
 
-// Middle orbit - slightly larger
-const MiddleOrbit = styled.div`
+/* --- TYPING NAME STYLES --- */
+const NameContainer = styled(motion.h1)`
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(48px, 5vw, 78px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -3.5px;
+  position: relative;
+  display: inline-block;
+  
+  color: #f1e9e1;
+  -webkit-text-fill-color: #f1e9e1;
+  background: none;
+  -webkit-background-clip: border-box;
+
+  @media (max-width: 968px) {
+    letter-spacing: -2px;
+  }
+`;
+
+const HiddenText = styled.span`
+  visibility: hidden;
+`;
+
+const VisibleText = styled.span`
   position: absolute;
-  width: 110%;
-  height: 110%;
-  border-radius: 50%;
-  border: 1px solid rgba(37, 99, 235, 0.3);
-  animation: ${orbitRotateReverse} 12s linear infinite;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  
+  span.orange {
+    color: #e97852;
+    -webkit-text-fill-color: #e97852;
+  }
+`;
+
+const BlinkingCursor = styled.span`
+  display: inline-block;
+  width: 4px;
+  height: 0.85em;
+  background-color: #e97852;
+  margin-left: 6px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+`;
+
+const Role = styled(motion.div)`
+  position: relative;
+  display: inline-table;
+  margin-top: 19px;
+  padding-bottom: 15px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(17px, 1.8vw, 25px);
+  color: #e2dad2;
 
   &::after {
     content: '';
     position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 12px;
-    height: 12px;
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    border-radius: 50%;
-    box-shadow: 0 0 15px rgba(37, 99, 235, 0.8);
+    left: 37%;
+    bottom: 0;
+    width: 95px;
+    height: 2px;
+    background: #e97852;
+    transform: rotate(-2deg);
   }
 `;
 
-// Outer orbit - decorative
-const OuterOrbit = styled.div`
-  position: absolute;
-  width: 120%;
-  height: 120%;
-  border-radius: 50%;
-  border: 1px solid rgba(124, 58, 237, 0.2);
-  animation: ${orbitRotate} 15s linear infinite;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    right: 20%;
-    width: 8px;
-    height: 8px;
-    background: #7c3aed;
-    border-radius: 50%;
-    box-shadow: 0 0 12px rgba(124, 58, 237, 0.6);
-  }
-`;
-
-// Floating dots around the orbit
-const FloatingDot = styled.div`
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: ${props => props.color || '#2563eb'};
-  border-radius: 50%;
-  animation: ${pulse} 2s ease-in-out infinite;
-  animation-delay: ${props => props.delay || '0s'};
-  
-  &:nth-child(1) {
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  &:nth-child(2) {
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  &:nth-child(3) {
-    top: 50%;
-    left: -15px;
-    transform: translateY(-50%);
-  }
-  
-  &:nth-child(4) {
-    top: 50%;
-    right: -15px;
-    transform: translateY(-50%);
-  }
-
-  @media (max-width: 480px) {
-    width: 5px;
-    height: 5px;
-  }
-`;
-
-// Profile image wrapper with proper sizing
-const ProfileWrapper = styled.div`
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
-  z-index: 10;
-  border: 3px solid #1e293b;
-  box-shadow: 
-    0 0 30px rgba(37, 99, 235, 0.3),
-    inset 0 0 20px rgba(37, 99, 235, 0.1);
+const Description = styled(motion.p)`
+  max-width: 510px;
+  margin: 29px 0 0;
+  color: #cbc5bf;
+  font-size: 16px;
+  line-height: 1.8;
+  letter-spacing: -0.15px;
 
   @media (max-width: 968px) {
-    width: 240px;
-    height: 240px;
-  }
-
-  @media (max-width: 768px) {
-    width: 220px;
-    height: 220px;
-  }
-
-  @media (max-width: 480px) {
-    width: 180px;
-    height: 180px;
-    border: 2px solid #1e293b;
+    margin-inline: auto;
   }
 `;
 
+const Actions = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 35px;
+
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
+`;
+
+const Button = styled(motion.a)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 51px;
+  padding: 0 23px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.primary {
+    background: #e97852;
+    border: 1px solid #e97852;
+    color: #181310;
+    &:hover { background: #f28b65; border-color: #f28b65; transform: translateY(-2px); }
+  }
+
+  &.outline {
+    background: rgba(17, 18, 19, 0.2);
+    border: 1px solid #8c5b48;
+    color: #f1e9e1;
+    &:hover { background: rgba(233, 120, 82, 0.1); border-color: #e97852; transform: translateY(-2px); }
+  }
+`;
+
+const Socials = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 36px;
+
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
+
+  a {
+    color: #b9b2ac;
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    transition: color 0.2s ease;
+    &:hover { color: #e97852; }
+  }
+
+  span {
+    width: 1px;
+    height: 17px;
+    background: #625c56;
+  }
+`;
+
+/* --- RIGHT COLUMN (VISUALS) --- */
+const VisualContent = styled(motion.div)`
+  position: relative;
+  width: min(100%, 470px);
+  justify-self: center;
+  aspect-ratio: 0.96;
+  isolation: isolate;
+`;
+
+const PortraitFrame = styled.div`
+  position: absolute;
+  z-index: -1;
+  top: -7%;
+  right: 0;
+  width: 57%;
+  height: 62%;
+  background: linear-gradient(145deg, #d76e4e, #ef9976 52%, #99513c);
+`;
+
+const PortraitImage = styled.img`
+  position: absolute;
+  top: 8%;
+  left: 0;
+  width: 84%;
+  height: 76%;
+  object-fit: cover;
+  object-position: center 28%;
+  border: 1px solid rgba(241, 233, 225, 0.12);
+  filter: saturate(0.83) contrast(1.02);
+`;
+
+const PortraitCorner = styled.div`
+  position: absolute;
+  z-index: 1;
+  left: -6%;
+  bottom: 9%;
+  width: 24%;
+  height: 24%;
+  border-left: 3px solid #e97852;
+  border-bottom: 3px solid #e97852;
+  pointer-events: none;
+`;
+
+const HandwrittenNote = styled.div`
+  position: absolute;
+  top: 16%;
+  right: -18%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #f1e9e1;
+  font-family: 'Caveat', cursive;
+  font-size: clamp(24px, 2.2vw, 34px);
+  line-height: 0.9;
+  transform: rotate(-7deg);
+
+  @media (max-width: 968px) {
+    right: -10%;
+  }
+`;
+
+const NoteArrow = styled.svg`
+  width: 68px;
+  height: 58px;
+  margin-bottom: 6px;
+  margin-left: -10px;
+`;
+
+const NoteUnderline = styled.i`
+  width: 68px;
+  height: 2px;
+  margin-top: 8px;
+  background: #e97852;
+  transform: rotate(-7deg);
+`;
+
+const DeveloperTag = styled.div`
+  position: absolute;
+  right: -1%;
+  bottom: 12%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 41px;
+  padding: 0 12px;
+  border: 1px solid rgba(241, 233, 225, 0.17);
+  background: rgba(17, 18, 19, 0.93);
+  color: #c8c0b9;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  white-space: nowrap;
+
+  span.icon {
+    color: #e97852;
+    font-size: 15px;
+  }
+`;
+
+/* --- CUSTOM CURSOR COMPONENT --- */
+const CustomCursor = () => {
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+
+  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkPointer = window.matchMedia('(pointer: fine)');
+    setIsMobile(!checkPointer.matches);
+
+    const moveCursor = (e) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+    };
+
+    window.addEventListener('mousemove', moveCursor);
+    return () => window.removeEventListener('mousemove', moveCursor);
+  }, [cursorX, cursorY]);
+
+  if (isMobile) return null;
+
+  return (
+    <>
+      <motion.div
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          x: cursorXSpring,
+          y: cursorYSpring,
+          translateX: '-50%',
+          translateY: '-50%',
+          width: '36px',
+          height: '36px',
+          border: '1px solid rgba(233, 120, 82, 0.6)',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          zIndex: 9998,
+          boxShadow: '0 0 15px rgba(233, 120, 82, 0.2)',
+        }}
+      />
+      <motion.div
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          x: cursorX,
+          y: cursorY,
+          translateX: '-50%',
+          translateY: '-50%',
+          width: '6px',
+          height: '6px',
+          backgroundColor: '#e97852',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          zIndex: 9999,
+        }}
+      />
+    </>
+  );
+};
+
+/* --- MAIN HERO COMPONENT --- */
 const Hero = () => {
   const { t, i18n } = useTranslation();
+  
+  const isFrench = i18n.language?.startsWith('fr');
+  const cvFileName = isFrench ? 'bahae_kenikssi_cv_fr.pdf' : 'bahae_kenikssi_cv_en.pdf';
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
+  const [typedText, setTypedText] = useState('');
+  const [typedRole, setTypedRole] = useState('');
+  
+  // Typing Effect for Name & Role
+  useEffect(() => {
+    let nameInterval;
+    let roleInterval;
+    let i = 0;
+    let j = 0;
+    const fullName = "Bahae Kenikssi";
+    const fullRole = "Full Stack Developer";
+
+    const startDelay = setTimeout(() => {
+      // 1. Type the Name
+      nameInterval = setInterval(() => {
+        setTypedText(fullName.substring(0, i + 1));
+        i++;
+        if (i === fullName.length) {
+          clearInterval(nameInterval);
+          
+          // 2. Wait a moment, then type the Role
+          setTimeout(() => {
+            roleInterval = setInterval(() => {
+              setTypedRole(fullRole.substring(0, j + 1));
+              j++;
+              if (j === fullRole.length) clearInterval(roleInterval);
+            }, 50); // Role types faster
+          }, 400);
+        }
+      }, 100); // Name types slower
+    }, 800);
+
+    return () => {
+      clearTimeout(startDelay);
+      if (nameInterval) clearInterval(nameInterval);
+      if (roleInterval) clearInterval(roleInterval);
+    };
+  }, []);
+
+  const renderTypedName = () => {
+    if (typedText.length <= 6) {
+      return <span>{typedText}</span>;
     }
+    return (
+      <>
+        <span>{typedText.substring(0, 6)}</span>
+        <span className="orange">{typedText.substring(6)}</span>
+      </>
+    );
   };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5
-      }
-    }
-  };
-
-  const imageVariants = {
-    hidden: { scale: 0, rotate: -180 },
-    visible: {
-      scale: 1,
-      rotate: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        duration: 1
-      }
-    }
-  };
-
-  const cvFileName = i18n.language === 'fr' ? 'bahae_kenikssi_cv_fr.pdf' : 'bahae_kenikssi_cv_en.pdf';
 
   return (
     <HeroContainer id="home">
-      <HeroContent>
-        <TextContent
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <Greeting variants={itemVariants}>
+      <CustomCursor />
+      
+      <BackgroundLayer />
+      <CharcoalTexture />
+      <WarmEdge />
+
+      <HeroInner>
+        <TextContent>
+          <Eyebrow
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             {t('hero.greeting')}
-          </Greeting>
-          
-          <Name variants={itemVariants}>
-            <AnimatedText text={t('hero.name')} />
-          </Name>
-          
-          <Title variants={itemVariants}>
+          </Eyebrow>
+
+          <NameContainer
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <HiddenText>Bahae Kenikssi</HiddenText>
+            <VisibleText>
+              {renderTypedName()}
+              <BlinkingCursor />
+            </VisibleText>
+          </NameContainer>
+
+          <Role
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             {t('hero.title')}
-          </Title>
-          
-          <Description variants={itemVariants}>
+          </Role>
+
+          <Description
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             {t('hero.description')}
           </Description>
-          
-          <ButtonGroup variants={itemVariants}>
+
+          <Actions
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
             <Button
-              as="a"
+              className="primary"
               href={`/cv/${cvFileName}`}
               download
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
+              <span aria-hidden="true">↓</span>
               {t('hero.downloadCv')}
             </Button>
+
             <Button
-              variant="secondary"
+              className="outline"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
+              <span aria-hidden="true">✉</span>
               {t('hero.contactMe')}
             </Button>
-          </ButtonGroup>
+          </Actions>
+
+          <Socials
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <a href="https://github.com/BAHAEKENIK" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <span />
+            <a href="https://www.linkedin.com/in/bahae-kenikssi-40414021b/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+            <span />
+            <a href="mailto:bahaekenik@gmail.com">Email ↗</a>
+          </Socials>
         </TextContent>
 
-        <ImageContainer
-          variants={imageVariants}
-          initial="hidden"
-          animate="visible"
+        <VisualContent
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <OrbitContainer>
-            <OuterOrbit />
-            <MiddleOrbit />
-            <InnerOrbit />
-            
-            {/* Floating dots */}
-            <FloatingDot color="#2563eb" delay="0s" />
-            <FloatingDot color="#7c3aed" delay="0.5s" />
-            <FloatingDot color="#f59e0b" delay="1s" />
-            <FloatingDot color="#ef4444" delay="1.5s" />
-            
-            <ProfileWrapper>
-              <ProfileImage />
-            </ProfileWrapper>
-          </OrbitContainer>
-        </ImageContainer>
-      </HeroContent>
+          <PortraitFrame />
+          <PortraitCorner />
+          
+          <PortraitImage 
+            src="/assets/images/bahae-portrait.jpg" 
+            alt="Portrait de Bahae Kenikssi" 
+          />
+
+          <HandwrittenNote>
+            <NoteArrow viewBox="0 0 90 80" fill="none">
+              <path d="M75 72C78 43 58 17 18 12" stroke="#f1e9e1" strokeWidth="1.8" strokeLinecap="round"/>
+              <path d="M34 3L17 12L31 25" stroke="#f1e9e1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </NoteArrow>
+            <span>Code.</span>
+            <span>Build.</span>
+            <span>Improve.</span>
+            <NoteUnderline />
+          </HandwrittenNote>
+
+          {/* UPDATED DEVELOPER TAG WITH TYPING EFFECT */}
+          <DeveloperTag>
+            <span className="icon">&lt;/&gt;</span>
+            <div style={{ position: 'relative' }}>
+              {/* Invisible placeholder to keep the box size stable */}
+              <span style={{ visibility: 'hidden' }}>Full Stack Developer</span>
+              
+              {/* Actual typing text */}
+              <span style={{ position: 'absolute', left: 0, top: 0, whiteSpace: 'nowrap' }}>
+                {typedRole}
+                {typedRole.length > 0 && typedRole.length < 20 && (
+                  <BlinkingCursor style={{ width: '2px', height: '10px', marginLeft: '2px' }} />
+                )}
+              </span>
+            </div>
+          </DeveloperTag>
+        </VisualContent>
+      </HeroInner>
     </HeroContainer>
   );
 };

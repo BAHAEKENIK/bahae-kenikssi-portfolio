@@ -1,3 +1,4 @@
+// Replace App.jsx with this:
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
@@ -18,6 +19,7 @@ const AppContainer = styled.div`
   position: relative;
   min-height: 100vh;
   overflow-x: hidden;
+  background-color: #0C0B0A;
 `;
 
 const MainContent = styled(motion.main)`
@@ -30,41 +32,34 @@ function App() {
   useScrollAnimation();
 
   useEffect(() => {
-    // Preload critical images
     const preloadImages = async () => {
-      // In the useEffect, update the imageUrls:
-    const imageUrls = [
-      '/assets/images/profile/profile.jpg',
-      '/assets/images/projects/getjob-project.png',
-      '/assets/images/projects/weatherapp-project.png',
-      '/assets/images/projects/order-service-project.png',
-      '/assets/images/projects/gestion-entreprise-project.png',
-      '/assets/images/certificates/react-certificate.png',
-      '/assets/images/certificates/sql-certificate.png',
-      '/assets/images/certificates/javascript-certificate.png',
-      '/assets/images/certificates/webdesign-certificate.png'
-    ];
+      const imageUrls = [
+        '/assets/images/bahae-portrait.jpg',
+        '/assets/images/mountains-dark.jpg',
+        '/assets/images/mountains-dark2.jpg',
+        '/assets/images/mountains-dark3.jpg',
+        '/assets/images/trees_montain.png',
+        '/assets/images/Charcoal.jpg',
+        '/assets/images/Warm_edge_lighting.jpg',
+        '/assets/images/projects/getjob-project.png',
+        '/assets/images/projects/weatherapp-project.png',
+        '/assets/images/projects/order-service-project.png',
+        '/assets/images/projects/gestion-entreprise-project.png',
+      ];
 
       const preloadPromises = imageUrls.map((src) => {
         return new Promise((resolve) => {
           const img = new Image();
           img.src = src;
           img.onload = resolve;
-          img.onerror = resolve; // Don't reject on error, just continue
+          img.onerror = resolve;
         });
       });
 
       await Promise.all(preloadPromises);
     };
 
-    // Simulate loading time and preload images
-    const timer = setTimeout(() => {
-      preloadImages().finally(() => {
-        setIsLoading(false);
-      });
-    }, 2000);
-
-    return () => clearTimeout(timer);
+    preloadImages();
   }, []);
 
   const handleLoadingComplete = () => {
@@ -79,17 +74,36 @@ function App() {
 
   const pageTransition = {
     type: "tween",
-    ease: "anticipate",
-    duration: 0.5
+    ease: "easeInOut",
+    duration: 0.8
   };
 
   return (
     <>
       <GlobalStyles />
       <AppContainer>
+        {/* Moved scroll progress outside the conditional render to fix GSAP error */}
+        <div 
+          className="scroll-progress" 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '3px',
+            background: 'linear-gradient(90deg, #AD482B, #D96D42, #F18A5B)',
+            transformOrigin: 'left',
+            transform: 'scaleX(0)',
+            zIndex: 9999,
+            boxShadow: '0 0 10px rgba(217, 109, 66, 0.5)',
+            opacity: isLoading ? 0 : 1, // Hide it while loading
+            transition: 'opacity 0.5s ease'
+          }} 
+        />
+
         <AnimatePresence mode="wait">
           {isLoading ? (
-            <LoadingScreen onLoadingComplete={handleLoadingComplete} />
+            <LoadingScreen key="loader" onLoadingComplete={handleLoadingComplete} />
           ) : (
             <MainContent
               key="main-content"
@@ -100,21 +114,6 @@ function App() {
               transition={pageTransition}
             >
               <Navigation />
-              {/* Add scroll progress indicator */}
-              <div 
-                className="scroll-progress" 
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '3px',
-                  background: 'linear-gradient(90deg, #2563eb, #7c3aed)',
-                  transformOrigin: 'left',
-                  transform: 'scaleX(0)',
-                  zIndex: 9999
-                }} 
-              />
               <Hero />
               <About />
               <Experience />
@@ -130,6 +129,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;

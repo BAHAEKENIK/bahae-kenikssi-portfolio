@@ -1,30 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { FiExternalLink, FiCalendar, FiClock, FiAward } from 'react-icons/fi';
 
+/* =========================================
+   TYPING EFFECT COMPONENT
+   ========================================= */
+const TypingEffect = ({ text, delay = 0, speed = 30 }) => {
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+    let timeout;
+    let interval;
+    let i = 0;
+
+    timeout = setTimeout(() => {
+      interval = setInterval(() => {
+        setDisplayedText(text.substring(0, i + 1));
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, speed);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeout);
+      if (interval) clearInterval(interval);
+    };
+  }, [text, delay, speed]);
+
+  return (
+    <span style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+      <span style={{ visibility: 'hidden', pointerEvents: 'none' }}>{text}</span>
+      <span style={{ position: 'absolute', top: 0, left: 0, whiteSpace: 'pre-wrap' }}>
+        {displayedText}
+        <motion.span
+          animate={{ opacity: [1, 0] }}
+          transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+          style={{
+            display: 'inline-block',
+            width: '3px',
+            height: '1.1em',
+            backgroundColor: '#D96D42',
+            marginLeft: '4px',
+            verticalAlign: 'text-bottom',
+          }}
+        />
+      </span>
+    </span>
+  );
+};
+
+/* =========================================
+   STYLED COMPONENTS
+   ========================================= */
 const Card = styled(motion.div)`
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  background: rgba(18, 17, 16, 0.92);
+  border: 1px solid #49372D;
+  border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
-  position: relative;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  position: relative;
 
   &:hover {
-    border-color: #2563eb;
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
+    border-color: #D96D42;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(217, 109, 66, 0.1);
 
     .certificate-image {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
 
-    .view-certificate {
+    .view-overlay {
       opacity: 1;
-      transform: translateY(0);
     }
   }
 `;
@@ -33,6 +84,7 @@ const ImageContainer = styled.div`
   position: relative;
   height: 200px;
   overflow: hidden;
+  background: #1B1917;
 `;
 
 const CertificateImage = styled.img`
@@ -44,22 +96,20 @@ const CertificateImage = styled.img`
 
 const ImageOverlay = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(124, 58, 237, 0.9) 100%);
+  inset: 0;
+  background: rgba(12, 11, 10, 0.75);
+  backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease;
 `;
 
 const ViewButton = styled(motion.button)`
-  background: rgba(15, 23, 42, 0.9);
-  border: 2px solid white;
-  color: white;
+  background: #D96D42;
+  border: none;
+  color: #FFF;
   padding: 0.75rem 1.5rem;
   border-radius: 25px;
   font-weight: 600;
@@ -67,55 +117,61 @@ const ViewButton = styled(motion.button)`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  transition: background 0.3s ease;
 
   &:hover {
-    background: white;
-    color: #2563eb;
+    background: #F18A5B;
   }
 `;
 
 const CardContent = styled.div`
-  padding: 2rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
 
-const CertificateHeader = styled.div`
+const TopRow = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 1rem;
-`;
-
-const IssuerIcon = styled.div`
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.5rem;
+  gap: 1rem;
 `;
 
 const Title = styled.h3`
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #f8fafc;
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #F0E8DE;
+  margin: 0;
+  line-height: 1.4;
   flex: 1;
-  margin-right: 1rem;
+  min-height: 3rem; /* Prevents layout jump while typing */
 `;
 
-const Issuer = styled.p`
-  color: #2563eb;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+const IconTile = styled.div`
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(145deg, #E77C50, #AD482B);
+  border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  color: #FFF;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+`;
+
+const Issuer = styled.div`
+  color: #D96D42;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 `;
 
 const MetaInfo = styled.div`
@@ -128,160 +184,132 @@ const MetaInfo = styled.div`
 const MetaItem = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #64748b;
-  font-size: 0.9rem;
+  gap: 0.4rem;
+  color: #92877D;
+  font-size: 0.75rem;
 
   svg {
-    color: #2563eb;
+    color: #D96D42;
   }
 `;
 
 const Description = styled.p`
-  color: #cbd5e1;
+  color: #C8C0B7;
+  font-size: 0.85rem;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  flex: 1;
 `;
 
 const Skills = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
 `;
 
 const SkillTag = styled.span`
-  background: rgba(37, 99, 235, 0.1);
-  border: 1px solid rgba(37, 99, 235, 0.3);
-  color: #2563eb;
-  padding: 0.3rem 0.8rem;
+  background: transparent;
+  border: 1px solid #74412E;
+  color: #E6B39A;
+  padding: 0.2rem 0.6rem;
   border-radius: 15px;
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.7rem;
 `;
 
 const Actions = styled.div`
   display: flex;
-  gap: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 0.8rem;
+  border-top: 1px solid #49372D;
   padding-top: 1rem;
+  margin-top: auto;
 `;
 
 const ActionButton = styled(motion.button)`
-  background: ${props => props.primary ? 
-    'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)' : 
-    'transparent'};
-  color: ${props => props.primary ? 'white' : '#2563eb'};
-  border: ${props => props.primary ? 'none' : '1px solid #2563eb'};
+  background: ${props => (props.primary ? '#D96D42' : 'transparent')};
+  color: ${props => (props.primary ? '#FFF' : '#D96D42')};
+  border: 1px solid ${props => (props.primary ? '#D96D42' : '#74412E')};
   padding: 0.5rem 1rem;
-  border-radius: 25px;
+  border-radius: 20px;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  flex: 1;
   justify-content: center;
+  gap: 0.4rem;
+  flex: 1;
+  text-decoration: none;
+  transition: all 0.3s ease;
 
   &:hover {
+    background: ${props => (props.primary ? '#F18A5B' : 'rgba(217, 109, 66, 0.1)')};
+    border-color: #F18A5B;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
   }
 `;
 
+/* =========================================
+   MAIN COMPONENT
+   ========================================= */
 const CertificateCard = ({ certificate, index, onViewCertificate }) => {
+  const { t } = useTranslation();
   const [imageError, setImageError] = useState(false);
 
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 50,
-      scale: 0.9 
-    },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        delay: index * 0.1,
-        ease: "easeOut"
-      }
+      transition: { duration: 0.5, delay: index * 0.1 },
     },
-    hover: {
-      y: -10,
-      transition: {
-        duration: 0.3
-      }
-    }
-  };
-
-  const buttonVariants = {
-    hover: {
-      scale: 1.05,
-      transition: {
-        duration: 0.2
-      }
-    },
-    tap: {
-      scale: 0.95
-    }
-  };
-
-  const handleImageError = () => {
-    setImageError(true);
   };
 
   const getImageSrc = () => {
     if (imageError) {
-      return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMUUyOTNCIi8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjgwIiByPSIzMCIgZmlsbD0iIzI1NjNFQiIgb3BhY2l0eT0iMC4zIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTQwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM2NDc0OEIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkNlcnRpZmljYXRlIEltYWdlPC90ZXh0Pgo8L3N2Zz4K';
+      return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMTExMDBGIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTAwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5Mjg3N0QiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkNlcnRpZmljYXQgSW1hZ2U8L3RleHQ+Cjwvc3ZnPg==';
     }
     return `/assets/images/certificates/${certificate.image}`;
   };
 
   return (
-    <Card
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      whileHover="hover"
-    >
+    <Card variants={cardVariants}>
       <ImageContainer>
         <CertificateImage
           src={getImageSrc()}
           alt={certificate.title}
           className="certificate-image"
-          onError={handleImageError}
+          onError={() => setImageError(true)}
+          loading="lazy"
         />
-        <ImageOverlay className="view-certificate">
+        <ImageOverlay className="view-overlay">
           <ViewButton
             onClick={() => onViewCertificate(certificate)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             <FiExternalLink />
-            View Certificate
+            {t('certificates.card.viewCertificate') || 'Voir le Certificat'}
           </ViewButton>
         </ImageOverlay>
       </ImageContainer>
 
       <CardContent>
-        <CertificateHeader>
-          <Title>{certificate.title}</Title>
-          <IssuerIcon>
+        <TopRow>
+          <Title>
+            <TypingEffect text={certificate.title} delay={index * 200} />
+          </Title>
+          <IconTile>
             <FiAward />
-          </IssuerIcon>
-        </CertificateHeader>
+          </IconTile>
+        </TopRow>
 
         <Issuer>
-          <FiAward size={16} />
+          <FiAward size={14} />
           {certificate.issuer}
         </Issuer>
 
@@ -302,8 +330,8 @@ const CertificateCard = ({ certificate, index, onViewCertificate }) => {
 
         {certificate.skills && certificate.skills.length > 0 && (
           <Skills>
-            {certificate.skills.slice(0, 4).map((skill, skillIndex) => (
-              <SkillTag key={skillIndex}>{skill}</SkillTag>
+            {certificate.skills.slice(0, 4).map((skill, i) => (
+              <SkillTag key={i}>{skill}</SkillTag>
             ))}
             {certificate.skills.length > 4 && (
               <SkillTag>+{certificate.skills.length - 4}</SkillTag>
@@ -315,24 +343,22 @@ const CertificateCard = ({ certificate, index, onViewCertificate }) => {
           <ActionButton
             primary
             onClick={() => onViewCertificate(certificate)}
-            variants={buttonVariants}
-            whileHover="hover"
-            whileTap="tap"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             <FiExternalLink />
-            View
+            {t('certificates.card.view') || 'Voir'}
           </ActionButton>
           {certificate.credentialUrl && certificate.credentialUrl !== '#' && (
             <ActionButton
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
-              as="a"
+              as={motion.a}
               href={certificate.credentialUrl}
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Verify
+              {t('certificates.card.verify') || 'Vérifier'}
             </ActionButton>
           )}
         </Actions>

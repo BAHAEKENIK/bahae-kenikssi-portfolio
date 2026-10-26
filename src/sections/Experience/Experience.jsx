@@ -2,230 +2,211 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
-
 import { FiCalendar, FiMapPin, FiExternalLink } from 'react-icons/fi';
-const experienceData=[
+
+const experienceData = [
   {
-    "id": 1,
-    "title": "Full Stack Developer Intern",
-    "company": "Hutchinson Maroc",
-    "location": "Tangier, Morocco",
-    "period": "April 2026 - Present",
-    "description": "Working as a full-stack developer intern on enterprise-level applications, contributing to both front-end and back-end development, system design, and debugging using modern tools and frameworks.",
-    "responsibilities": [
-      "Developing and maintaining full-stack applications using Angular, Spring Boot, and Django",
-      "Designing and managing relational databases with SQL Server and MySQL",
-      "Deploying applications locally with server configuration and environment setup",
-      "Creating UML diagrams for system architecture and application design",
-      "Implementing modern UI/UX animations using Framer Motion",
-      "Debugging and optimizing code using AI tools like Claude and Codex",
-      "Collaborating with team members on scalable and maintainable solutions"
+    id: 1,
+    title: "Stagiaire Développeur Full Stack",
+    company: "Hutchinson Maroc",
+    location: "Tanger, Maroc",
+    period: "Avril 2026 - Présent",
+    description: "Participation au développement et à la maintenance des applications internes de l'entreprise. Travail sur des fonctionnalités full stack avec Spring Boot et Angular, en collaboration avec l'équipe IT.",
+    responsibilities: [
+      "Développement et maintenance d'applications full-stack avec Angular, Spring Boot et Django",
+      "Conception et gestion de bases de données relationnelles avec SQL Server et MySQL",
+      "Déploiement local d'applications avec configuration serveur et mise en place de l'environnement",
+      "Création de diagrammes UML pour l'architecture système et la conception d'applications",
+      "Débogage et optimisation du code à l'aide d'outils d'IA comme Claude et Codex"
     ],
-    "technologies": [
-      "Angular",
-      "Spring Boot",
-      "Django",
-      "SQL Server",
-      "MySQL",
-      "UML",
-      "Framer Motion",
-      "Local Deployment",
-      "Server Configuration",
-      "Claude AI",
-      "OpenAI Codex",
-      "Git"
-    ]
+    technologies: ["Spring Boot", "Angular", "Django", "SQL Server", "MySQL", "UML", "Git"]
   },
   {
-    "id": 2,
-    "title": "Full Stack Web Developer Intern",
-    "company": "Union IT Service",
-    "location": "Casablanca, Morocco",
-    "period": "May 2025 - June 2025",
-    "description": "Participated in the development of an internal management system for companies, working on both front-end and back-end development with modern web technologies.",
-    "responsibilities": [
-      "Developed and maintained internal management system for employee tracking and task management",
-      "Implemented secure authentication system with role-based access control",
-      "Created RESTful APIs for data management and integration",
-      "Developed responsive front-end interfaces using modern CSS frameworks",
-      "Worked on data import/export functionality and dynamic dashboard features",
-      "Collaborated with team members using Git version control"
+    id: 2,
+    title: "Stagiaire Développeur Web Full Stack",
+    company: "Union IT Service",
+    location: "Casablanca, Maroc",
+    period: "Mai 2025 - Juin 2025",
+    description: "Développement d'applications web et participation à la création de sites vitrines et d'outils internes. Travail en équipe sur des projets front-end et back-end.",
+    responsibilities: [
+      "Développement et maintenance d'un système de gestion interne pour le suivi des employés",
+      "Mise en place d'un système d'authentification sécurisé avec contrôle d'accès basé sur les rôles",
+      "Création d'API RESTful pour la gestion et l'intégration des données",
+      "Développement d'interfaces front-end responsives avec des frameworks CSS modernes",
+      "Collaboration avec les membres de l'équipe via le contrôle de version Git"
     ],
-    "technologies": [
-      "Laravel",
-      "PHP",
-      "MVC Architecture",
-      "RESTful API",
-      "MySQL",
-      "Blade",
-      "Tailwind CSS",
-      "Alpine.js",
-      "JavaScript",
-      "Git",
-      "Laravel Breeze",
-      "Spatie Permissions"
-    ],
-    "website": "https://uits.ma/"
+    technologies: ["React", "Laravel", "PHP", "MySQL", "JavaScript", "Tailwind CSS"],
+    website: "https://uits.ma/"
   },
   {
-    "id": 3,
-    "title": "Web Development Student",
-    "company": "Institute Specialized in Offshore Professions",
-    "location": "Tetouan, Morocco",
-    "period": "September 2023 - Present",
-    "description": "Comprehensive full-stack web development training program focusing on modern technologies and best practices.",
-    "responsibilities": [
-      "Completed intensive training in front-end and back-end development",
-      "Developed multiple full-stack projects using Laravel and React",
-      "Learned database design and management with MySQL and MongoDB",
-      "Studied software architecture patterns and best practices",
-      "Gained experience in version control with Git and collaborative development"
+    id: 3,
+    title: "Étudiant en Développement Web",
+    company: "Institut Spécialisé dans les Métiers de l'Offshoring",
+    location: "Tétouan, Maroc",
+    period: "Septembre 2023 - Juin 2025",
+    description: "Formation en développement web et acquisition des bases en front-end et back-end. Réalisation de projets académiques et développement de compétences en technologies modernes du web.",
+    responsibilities: [
+      "Création de sites web dynamiques avec HTML, CSS, JavaScript et PHP",
+      "Apprentissage des bases de données et de la logique de programmation",
+      "Développement de plusieurs projets full-stack avec Laravel et React",
+      "Travail sur des projets pratiques et amélioration continue des compétences"
     ],
-    "technologies": [
-      "HTML/CSS",
-      "JavaScript",
-      "React",
-      "Laravel",
-      "PHP",
-      "MySQL",
-      "MongoDB",
-      "Git",
-      "Bootstrap",
-      "Tailwind CSS",
-      "RESTful APIs",
-      "UML"
-    ]
+    technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Laravel", "React"]
   }
 ];
+
+/* =========================================
+   STYLED COMPONENTS
+   ========================================= */
 const ExperienceContainer = styled.section`
-  min-height: 100vh;
-  padding: 5rem 2rem;
-  background: rgba(15, 23, 42, 0.9);
   position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  padding: 8rem 2rem;
+  background: #111213;
+  color: #F0E8DC;
+  font-family: 'Manrope', sans-serif;
+  overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 3rem 1rem;
+    padding: 5rem 1rem;
+  }
+`;
+
+/* --- BACKGROUND LAYER --- */
+const BackgroundLayer = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: 
+    linear-gradient(90deg, rgba(17,18,19,0.1) 0%, rgba(17,18,19,0.85) 45%, #111213 75%),
+    linear-gradient(0deg, rgba(8,9,9,0.1) 0%, #111213 100%),
+    url('/assets/images/mountains-dark2.jpg');
+  background-position: center, center, left bottom;
+  background-size: cover, cover, 65% auto;
+  background-repeat: no-repeat;
+
+  @media (max-width: 968px) {
+    background-size: cover, cover, 150% auto;
   }
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 `;
 
-const SectionTitle = styled(motion.h2)`
-  font-family: 'Roboto Slab', serif;
-  font-size: 3rem;
+/* --- HEADER --- */
+const SectionHeader = styled(motion.div)`
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
+`;
+
+const SectionTitle = styled.h2`
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -1px;
+  color: #F0E8DC;
+  display: inline-block;
   position: relative;
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -15px;
     left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    transform: translateX(-50%) rotate(-2deg);
+    width: 120px;
+    height: 3px;
+    background: #D97850;
     border-radius: 2px;
   }
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 `;
 
+/* --- TIMELINE LAYOUT --- */
 const TimelineContainer = styled.div`
   position: relative;
-  max-width: 800px;
-  margin: 0 auto;
+  padding-left: 3rem;
 
   &::before {
     content: '';
     position: absolute;
-    left: 30px;
     top: 0;
     bottom: 0;
+    left: 0;
     width: 2px;
-    background: linear-gradient(to bottom, #2563eb, #7c3aed);
-    
-    @media (max-width: 768px) {
-      left: 20px;
-    }
+    background: #D97850;
+    opacity: 0.4;
+  }
+
+  @media (max-width: 768px) {
+    padding-left: 1.5rem;
   }
 `;
 
-const ExperienceItem = styled(motion.div)`
+const TimelineItem = styled(motion.div)`
   position: relative;
   margin-bottom: 3rem;
-  padding-left: 80px;
 
-  @media (max-width: 768px) {
-    padding-left: 60px;
-  }
-`;
-
-const TimelineDot = styled.div`
-  position: absolute;
-  left: 22px;
-  top: 0;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-  border: 3px solid #0f172a;
-  z-index: 2;
-
-  @media (max-width: 768px) {
-    left: 12px;
-    width: 14px;
-    height: 14px;
-  }
-
-  &::after {
+  &::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 24px;
-    height: 24px;
+    top: 8px;
+    left: -3.35rem;
+    width: 12px;
+    height: 12px;
+    background: #D97850;
     border-radius: 50%;
-    background: rgba(37, 99, 235, 0.2);
-    animation: pulse 2s infinite;
-
-    @media (max-width: 768px) {
-      width: 20px;
-      height: 20px;
-    }
+    box-shadow: 0 0 10px rgba(217, 120, 80, 0.4);
+    z-index: 2;
   }
 
-  @keyframes pulse {
-    0%, 100% {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
+  /* Decorative slashes on the right */
+  &::after {
+    content: '//';
+    position: absolute;
+    right: -40px;
+    top: 30px;
+    font-family: 'Caveat', cursive;
+    color: #D97850;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    transform: rotate(15deg);
+  }
+
+  @media (max-width: 768px) {
+    &::before {
+      left: -1.85rem;
     }
-    50% {
-      transform: translate(-50%, -50%) scale(1.5);
-      opacity: 0;
+    &::after {
+      display: none;
     }
   }
 `;
 
-const ExperienceContent = styled(motion.div)`
-  background: rgba(30, 41, 59, 0.6);
+/* --- CARD STYLES --- */
+const Card = styled.div`
+  background: rgba(26, 25, 23, 0.6);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  border: 1px solid #494039;
+  border-radius: 12px;
   padding: 2rem;
   transition: all 0.3s ease;
+  position: relative;
 
   &:hover {
-    border-color: #2563eb;
-    transform: translateX(10px);
-    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+    border-color: #D97850;
+    background: rgba(35, 33, 30, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 
   @media (max-width: 768px) {
@@ -233,37 +214,56 @@ const ExperienceContent = styled(motion.div)`
   }
 `;
 
-const ExperienceHeader = styled.div`
+const CardHeader = styled.div`
   display: flex;
-  justify-content: between;
+  justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.8rem;
   }
 `;
 
-const TitleSection = styled.div`
+const TitleGroup = styled.div`
   flex: 1;
 `;
 
-const ExperienceTitle = styled.h3`
-  font-size: 1.3rem;
+const JobTitle = styled.h3`
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #F0E8DC;
+  margin: 0 0 0.4rem 0;
+  line-height: 1.2;
+`;
+
+const CompanyName = styled.div`
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.85rem;
+  color: #D97850;
   font-weight: 600;
-  color: #f8fafc;
-  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `;
 
-const Company = styled.h4`
-  font-size: 1.1rem;
-  color: #2563eb;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+const WebsiteLink = styled.a`
+  color: #D97850;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+  
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
-const ExperienceMeta = styled.div`
+const MetaGroup = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -273,6 +273,7 @@ const ExperienceMeta = styled.div`
     align-items: flex-start;
     flex-direction: row;
     gap: 1rem;
+    margin-top: 0.5rem;
   }
 `;
 
@@ -280,142 +281,129 @@ const MetaItem = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #64748b;
-  font-size: 0.9rem;
+  color: #C5BDB4;
+  font-size: 0.85rem;
 
   svg {
-    color: #2563eb;
+    color: #D97850;
   }
 `;
 
-const ExperienceDescription = styled.div`
-  color: #cbd5e1;
-  line-height: 1.6;
+const Description = styled.p`
+  color: #C5BDB4;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
 `;
 
-const ResponsibilitiesList = styled.ul`
+const List = styled.ul`
   list-style: none;
   padding: 0;
-  margin: 1rem 0;
+  margin: 0 0 1.5rem 0;
 `;
 
-const ResponsibilityItem = styled(motion.li)`
-  color: #cbd5e1;
+const ListItem = styled.li`
+  color: #C5BDB4;
+  font-size: 0.9rem;
   line-height: 1.6;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
   position: relative;
-  padding-left: 1.5rem;
+  padding-left: 1.2rem;
 
   &::before {
-    content: '▹';
+    content: '•';
     position: absolute;
     left: 0;
-    color: #2563eb;
-    font-weight: bold;
+    color: #D97850;
+    font-size: 1.2rem;
+    line-height: 1;
+    top: -1px;
   }
 `;
 
-const Technologies = styled.div`
+const TechStack = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  gap: 0.6rem;
 `;
 
-const TechTag = styled(motion.span)`
-  background: rgba(37, 99, 235, 0.1);
-  border: 1px solid rgba(37, 99, 235, 0.3);
-  color: #2563eb;
+const TechTag = styled.span`
+  border: 1px solid #494039;
+  color: #F0E8DC;
   padding: 0.3rem 0.8rem;
-  border-radius: 15px;
-  font-size: 0.8rem;
-  font-weight: 600;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #D97850;
+    color: #D97850;
+  }
 `;
 
+/* =========================================
+   MAIN COMPONENT
+   ========================================= */
 const Experience = () => {
   const { t } = useTranslation();
 
-  const containerVariants = {
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
+  const staggerContainer = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const contentVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const responsibilityVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.4
-      }
+      transition: { staggerChildren: 0.2 }
     }
   };
 
   return (
     <ExperienceContainer id="experience">
+      <BackgroundLayer />
+      
       <Container>
-        <SectionTitle
-          variants={itemVariants}
+        <SectionHeader
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
+          variants={fadeUp}
         >
-          {t('experience.title')}
-        </SectionTitle>
+          <SectionTitle>{t('experience.title')}</SectionTitle>
+        </SectionHeader>
 
-        <TimelineContainer>
+        <TimelineContainer
+          as={motion.div}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {experienceData.map((experience) => (
-            <ExperienceItem
-              key={experience.id}
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-            >
-              <TimelineDot />
-              <ExperienceContent
-                variants={contentVariants}
-                whileHover={{ scale: 1.02 }}
-              >
-                <ExperienceHeader>
-                  <TitleSection>
-                    <ExperienceTitle>
-                      {experience.title}
-                    </ExperienceTitle>
-                    <Company>
+            <TimelineItem key={experience.id} variants={fadeUp}>
+              <Card>
+                <CardHeader>
+                  <TitleGroup>
+                    <JobTitle>{experience.title}</JobTitle>
+                    <CompanyName>
                       {experience.company}
-                    </Company>
-                  </TitleSection>
-                  <ExperienceMeta>
+                      {experience.website && (
+                        <WebsiteLink
+                          href={experience.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Visiter le site web"
+                        >
+                          <FiExternalLink size={14} />
+                        </WebsiteLink>
+                      )}
+                    </CompanyName>
+                  </TitleGroup>
+                  
+                  <MetaGroup>
                     <MetaItem>
                       <FiCalendar />
                       <span>{experience.period}</span>
@@ -424,61 +412,28 @@ const Experience = () => {
                       <FiMapPin />
                       <span>{experience.location}</span>
                     </MetaItem>
-                    {experience.website && (
-                      <MetaItem>
-                        <FiExternalLink />
-                        <a 
-                          href={experience.website} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          style={{ color: '#64748b', textDecoration: 'none' }}
-                        >
-                          Website
-                        </a>
-                      </MetaItem>
-                    )}
-                  </ExperienceMeta>
-                </ExperienceHeader>
+                  </MetaGroup>
+                </CardHeader>
 
-                <ExperienceDescription>
-                  <p>{experience.description}</p>
-                  
-                  {experience.responsibilities && (
-                    <ResponsibilitiesList>
-                      {experience.responsibilities.map((responsibility, respIndex) => (
-                        <ResponsibilityItem
-                          key={respIndex}
-                          variants={responsibilityVariants}
-                          initial="hidden"
-                          whileInView="visible"
-                          viewport={{ once: true }}
-                          transition={{ delay: respIndex * 0.1 }}
-                        >
-                          {responsibility}
-                        </ResponsibilityItem>
-                      ))}
-                    </ResponsibilitiesList>
-                  )}
+                <Description>{experience.description}</Description>
 
-                  {experience.technologies && (
-                    <Technologies>
-                      {experience.technologies.map((tech, techIndex) => (
-                        <TechTag
-                          key={techIndex}
-                          initial={{ opacity: 0, scale: 0 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: techIndex * 0.1 }}
-                          whileHover={{ scale: 1.1 }}
-                        >
-                          {tech}
-                        </TechTag>
-                      ))}
-                    </Technologies>
-                  )}
-                </ExperienceDescription>
-              </ExperienceContent>
-            </ExperienceItem>
+                {experience.responsibilities && (
+                  <List>
+                    {experience.responsibilities.map((resp, index) => (
+                      <ListItem key={index}>{resp}</ListItem>
+                    ))}
+                  </List>
+                )}
+
+                {experience.technologies && (
+                  <TechStack>
+                    {experience.technologies.map((tech, index) => (
+                      <TechTag key={index}>{tech}</TechTag>
+                    ))}
+                  </TechStack>
+                )}
+              </Card>
+            </TimelineItem>
           ))}
         </TimelineContainer>
       </Container>

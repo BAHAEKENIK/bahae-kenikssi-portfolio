@@ -22,6 +22,7 @@
     "experience": "Mois d'Expérience",
     "projects": "Projets Réalisés",
     "technologies": "Technologies Maîtrisées",
+    "technologiesTitle": "Technologies avec lesquelles je travaille",
     "education": {
       "title": "Éducation",
       "items": [
@@ -88,6 +89,13 @@
     "title": "Mes Projets",
     "viewProject": "Voir le Projet",
     "viewCode": "Voir le Code",
+    "noProjects": "Aucun projet trouvé pour ce filtre.",
+    "filters": {
+      "all": "Tous les Projets",
+      "laravel": "Laravel",
+      "react": "React",
+      "fullstack": "Full Stack"
+    },
     "items": {
       "getjob": {
         "title": "GetJob - Plateforme de Recherche d'Emploi",
@@ -120,6 +128,11 @@
   },
   "certificates": {
     "title": "Mes Certificats",
+    "card": {
+      "viewCertificate": "Voir le Certificat",
+      "view": "Voir",
+      "verify": "Vérifier"
+    },
     "items": {
       "react": {
         "title": "React de A à Z (Hooks, Redux, Contexte inclus)",
@@ -151,6 +164,14 @@
   "contact": {
     "title": "Contactez-Moi",
     "subtitle": "Je suis toujours intéressé par de nouvelles opportunités et collaborations.",
+    "description": "Que vous ayez un projet en tête ou que vous souhaitiez simplement me dire bonjour, n'hésitez pas à me contacter !",
+    "followMe": "Suivez-moi",
+    "info": {
+      "location": "Localisation",
+      "locationValue": "Rabat, Maroc",
+      "email": "Email",
+      "phone": "Téléphone"
+    },
     "name": "Votre Nom",
     "email": "Votre Email",
     "message": "Votre Message",
@@ -160,7 +181,12 @@
     "error": "Erreur lors de l'envoi du message. Veuillez réessayer."
   },
   "footer": {
+    "tagline": "Développeur Full Stack passionné par la création d'expériences web exceptionnelles. Toujours en apprentissage, toujours en construction, toujours à repousser les limites.",
+    "quickLinks": "Liens Rapides",
+    "getInTouch": "Restons en Contact",
+    "location": "Rabat, Maroc",
+    "scrollToTop": "Retour en haut",
     "copyright": "© {{year}} Bahae Kenikssi. Tous droits réservés.",
-    "madeWith": ""
+    "madeWith": "Fait avec"
   }
 }

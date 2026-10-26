@@ -1,277 +1,589 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import styled from 'styled-components';
-import Timeline from '../../components/Timeline/TimeLine';
+import { FiCode, FiFolder, FiLayers, FiBookOpen } from 'react-icons/fi';
 
+/* =========================================
+   CUSTOM CURSOR COMPONENT
+   ========================================= */
+const CustomCursor = () => {
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+
+  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkPointer = window.matchMedia('(pointer: fine)');
+    setIsMobile(!checkPointer.matches);
+
+    const moveCursor = (e) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+    };
+
+    window.addEventListener('mousemove', moveCursor);
+    return () => window.removeEventListener('mousemove', moveCursor);
+  }, [cursorX, cursorY]);
+
+  if (isMobile) return null;
+
+  return (
+    <>
+      <motion.div
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          x: cursorXSpring,
+          y: cursorYSpring,
+          translateX: '-50%',
+          translateY: '-50%',
+          width: '36px',
+          height: '36px',
+          border: '1px solid rgba(233, 120, 82, 0.6)',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          zIndex: 9998,
+          boxShadow: '0 0 15px rgba(233, 120, 82, 0.2)',
+        }}
+      />
+      <motion.div
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          x: cursorX,
+          y: cursorY,
+          translateX: '-50%',
+          translateY: '-50%',
+          width: '6px',
+          height: '6px',
+          backgroundColor: '#e97852',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          zIndex: 9999,
+        }}
+      />
+    </>
+  );
+};
+
+/* =========================================
+   TYPING EFFECT COMPONENT
+   ========================================= */
+const TypingEffect = ({ text, delay = 0, speed = 40 }) => {
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+    let timeout;
+    let interval;
+    let i = 0;
+
+    timeout = setTimeout(() => {
+      interval = setInterval(() => {
+        setDisplayedText(text.substring(0, i + 1));
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, speed);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeout);
+      if (interval) clearInterval(interval);
+    };
+  }, [text, delay, speed]);
+
+  return (
+    <span style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+      {/* Invisible text keeps the layout stable and prevents jumping while typing */}
+      <span style={{ visibility: 'hidden', pointerEvents: 'none' }}>{text}</span>
+      
+      <span style={{ position: 'absolute', top: 0, left: 0, whiteSpace: 'pre-wrap' }}>
+        {displayedText}
+        <motion.span
+          animate={{ opacity: [1, 0] }}
+          transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+          style={{
+            display: 'inline-block',
+            width: '2px',
+            height: '1em',
+            backgroundColor: '#e97852',
+            marginLeft: '4px',
+            verticalAlign: 'middle',
+          }}
+        />
+      </span>
+    </span>
+  );
+};
+
+/* =========================================
+   STYLED COMPONENTS
+   ========================================= */
 const AboutContainer = styled.section`
-  min-height: 100vh;
-  padding: 5rem 2rem;
-  background: rgba(15, 23, 42, 0.7);
   position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  padding: 8rem 2rem;
+  background: #111213;
+  color: #f1e9e1;
+  font-family: 'Manrope', sans-serif;
+  overflow: hidden;
+  cursor: default;
 
   @media (max-width: 768px) {
-    padding: 3rem 1rem;
+    padding: 5rem 1rem;
+  }
+`;
+
+/* --- BACKGROUND LAYER --- */
+const BackgroundLayer = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: 
+    linear-gradient(90deg, rgba(17,18,19,0.1) 0%, rgba(17,18,19,0.85) 45%, #111213 75%),
+    linear-gradient(0deg, rgba(8,9,9,0.1) 0%, #111213 100%),
+    url('/assets/images/mountains-dark2.jpg');
+  background-position: center, center, left bottom;
+  background-size: cover, cover, 65% auto;
+  background-repeat: no-repeat;
+
+  @media (max-width: 968px) {
+    background-size: cover, cover, 150% auto;
   }
 `;
 
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 `;
 
-const SectionTitle = styled(motion.h2)`
-  font-family: 'Roboto Slab', serif;
-  font-size: 3rem;
-  text-align: center;
+/* --- HEADER --- */
+const SectionHeader = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
   margin-bottom: 4rem;
-  position: relative;
+`;
 
-  &::after {
+const SectionNumber = styled.span`
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.5rem;
+  color: #8C5B48;
+  font-weight: 500;
+  
+  &::before {
     content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-    border-radius: 2px;
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: #8C5B48;
+    margin-right: 1rem;
+    vertical-align: middle;
+  }
+`;
+
+const SectionTitle = styled.h2`
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -1px;
+  color: #f1e9e1;
+
+  span {
+    color: #e97852;
   }
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 `;
 
+/* --- GRID LAYOUT --- */
 const ContentGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 5rem;
   align-items: start;
 
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 4rem;
   }
 `;
 
-const TextContent = styled(motion.div)`
+const LeftColumn = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 `;
 
-const Description = styled(motion.p)`
-  font-size: 1.2rem;
+const Description = styled.p`
+  font-size: 1.1rem;
   line-height: 1.8;
-  color: #cbd5e1;
-  margin-bottom: 1rem;
+  color: #B9B2AC;
+  margin-bottom: 3rem;
+  max-width: 90%;
 `;
 
-const StatsGrid = styled(motion.div)`
+/* --- STATS --- */
+const StatsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin: 2rem 0;
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
+  gap: 1rem;
+  margin-bottom: 3.5rem;
 `;
 
 const StatCard = styled(motion.div)`
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 1.5rem;
-  text-align: center;
+  background: rgba(30, 31, 32, 0.4);
+  backdrop-filter: blur(5px);
+  border: 1px solid #343230;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   transition: all 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
-    border-color: #2563eb;
-    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+    border-color: #8C5B48;
+    background: rgba(30, 31, 32, 0.8);
   }
 `;
 
+const StatIcon = styled.div`
+  color: #e97852;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+`;
+
 const StatNumber = styled.div`
-  font-size: 2.5rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #f1e9e1;
+  margin-bottom: 0.2rem;
 `;
 
 const StatLabel = styled.div`
-  font-size: 0.9rem;
-  color: #64748b;
+  font-size: 0.75rem;
+  color: #B9B2AC;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+`;
+
+/* --- TECHNOLOGIES --- */
+const TechTitle = styled.h3`
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #f1e9e1;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: #e97852;
+  }
 `;
 
 const SkillsList = styled(motion.div)`
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 0.8rem;
 `;
 
 const SkillTag = styled(motion.span)`
-  background: rgba(37, 99, 235, 0.1);
-  border: 1px solid rgba(37, 99, 235, 0.3);
-  color: #2563eb;
+  background: transparent;
+  border: 1px solid #4A4A4A;
+  color: #E2DAD2;
   padding: 0.5rem 1rem;
-  border-radius: 25px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
 
   &:hover {
-    background: rgba(37, 99, 235, 0.2);
+    border-color: #e97852;
+    color: #e97852;
     transform: translateY(-2px);
   }
 `;
 
-const TimelineSection = styled(motion.div)`
-  margin-top: 3rem;
+const HandwrittenNote = styled.div`
+  margin-top: 4rem;
+  font-family: 'Caveat', cursive;
+  font-size: 2.2rem;
+  line-height: 1.1;
+  color: #f1e9e1;
+  transform: rotate(-5deg);
+  display: inline-block;
+  text-align: center;
+
+  span {
+    color: #e97852;
+  }
+
+  @media (max-width: 968px) {
+    margin-top: 2rem;
+    text-align: left;
+  }
 `;
 
+/* --- RIGHT COLUMN (TIMELINE) --- */
+const RightColumn = styled(motion.div)`
+  position: relative;
+`;
+
+const HandwrittenPath = styled.div`
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  color: #e97852;
+  margin-bottom: 1rem;
+  transform: rotate(-3deg);
+`;
+
+const EduHeader = styled.h3`
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: #f1e9e1;
+  margin-bottom: 2rem;
+`;
+
+const TimelineContainer = styled.div`
+  position: relative;
+  padding-left: 2rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background: #e97852;
+    opacity: 0.5;
+  }
+`;
+
+const TimelineItem = styled(motion.div)`
+  position: relative;
+  margin-bottom: 2rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: -2.35rem;
+    width: 12px;
+    height: 12px;
+    background: #e97852;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(233, 120, 82, 0.5);
+  }
+`;
+
+const EduCard = styled.div`
+  background: rgba(30, 31, 32, 0.4);
+  backdrop-filter: blur(5px);
+  border: 1px solid #343230;
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+
+  &:hover {
+    border-color: #8C5B48;
+  }
+`;
+
+const DateBadge = styled.span`
+  display: inline-block;
+  background: #e97852;
+  color: #111213;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+`;
+
+const EduTitle = styled.h4`
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #f1e9e1;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  min-height: 3rem; /* Ensures card doesn't jump while typing */
+
+  svg {
+    color: #e97852;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+  }
+`;
+
+const EduSchool = styled.p`
+  font-size: 0.9rem;
+  color: #B9B2AC;
+  margin: 0 0 0.5rem 1.8rem;
+`;
+
+const EduDesc = styled.p`
+  font-size: 0.85rem;
+  color: #8C8C8C;
+  margin: 0 0 0 1.8rem;
+  line-height: 1.5;
+`;
+
+/* =========================================
+   MAIN COMPONENT
+   ========================================= */
 const About = () => {
   const { t } = useTranslation();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6
-      }
-    }
-  };
-
-  const statVariants = {
-    hidden: { scale: 0, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        duration: 0.6
-      }
-    }
-  };
 
   const skills = [
     'React', 'Laravel', 'JavaScript', 'PHP', 'MySQL', 'MongoDB',
     'HTML/CSS', 'Tailwind', 'Bootstrap', 'Git', 'Docker', 'Node.js'
   ];
 
+  // Fetching education data from translations
+  const educationItems = t('about.education.items', { returnObjects: true }) || [];
+  const eduArray = Array.isArray(educationItems) ? educationItems : [];
+
+  // Framer motion variants
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
   return (
     <AboutContainer id="about">
+      <CustomCursor />
+      <BackgroundLayer />
+      
       <Container>
-        <SectionTitle
-          variants={itemVariants}
+        <SectionHeader
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
+          variants={fadeUp}
         >
-          {t('about.title')}
-        </SectionTitle>
+          <SectionNumber>02</SectionNumber>
+          <SectionTitle>
+            {t('about.title').split(' ')[0]} <span>{t('about.title').split(' ').slice(1).join(' ')}</span>
+          </SectionTitle>
+        </SectionHeader>
 
         <ContentGrid>
-          <TextContent
-            variants={containerVariants}
+          {/* LEFT COLUMN */}
+          <LeftColumn
+            variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            <Description variants={itemVariants}>
+            <Description as={motion.p} variants={fadeUp}>
               {t('about.description')}
             </Description>
 
-            <StatsGrid variants={itemVariants}>
-              <StatCard
-                variants={statVariants}
-                whileHover={{ scale: 1.05 }}
-              >
-                <StatNumber>1+</StatNumber>
+            <StatsGrid>
+              <StatCard variants={fadeUp}>
+                <StatIcon><FiCode /></StatIcon>
+                <StatNumber>5+</StatNumber>
                 <StatLabel>{t('about.experience')}</StatLabel>
               </StatCard>
-
-              <StatCard
-                variants={statVariants}
-                whileHover={{ scale: 1.05 }}
-              >
+              
+              <StatCard variants={fadeUp}>
+                <StatIcon><FiFolder /></StatIcon>
                 <StatNumber>10+</StatNumber>
                 <StatLabel>{t('about.projects')}</StatLabel>
               </StatCard>
 
-              <StatCard
-                variants={statVariants}
-                whileHover={{ scale: 1.05 }}
-              >
+              <StatCard variants={fadeUp}>
+                <StatIcon><FiLayers /></StatIcon>
                 <StatNumber>15+</StatNumber>
                 <StatLabel>{t('about.technologies')}</StatLabel>
               </StatCard>
             </StatsGrid>
 
-            <motion.div variants={itemVariants}>
-              <h3 style={{ color: '#2563eb', marginBottom: '1rem' }}>
-                Technologies I Work With
-              </h3>
+            <motion.div variants={fadeUp}>
+              <TechTitle>{t('about.technologiesTitle')}</TechTitle>
               <SkillsList>
-                {skills.map((skill, index) => (
-                  <SkillTag
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    {skill}
-                  </SkillTag>
+                {skills.map((skill) => (
+                  <SkillTag key={skill}>{skill}</SkillTag>
                 ))}
               </SkillsList>
             </motion.div>
-          </TextContent>
 
-          <TimelineSection
-            variants={containerVariants}
+            <HandwrittenNote as={motion.div} variants={fadeUp}>
+              Apprendre.<br/>
+              <span>Créer.</span><br/>
+              Progresser.
+            </HandwrittenNote>
+          </LeftColumn>
+
+          {/* RIGHT COLUMN */}
+          <RightColumn
+            variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            <motion.h3 
-              variants={itemVariants}
-              style={{ 
-                color: '#2563eb', 
-                marginBottom: '2rem',
-                fontSize: '1.5rem'
-              }}
-            >
+            <HandwrittenPath as={motion.div} variants={fadeUp}>
+              Mon parcours
+            </HandwrittenPath>
+            
+            <EduHeader as={motion.h3} variants={fadeUp}>
               {t('about.education.title')}
-            </motion.h3>
-            <Timeline />
-          </TimelineSection>
+            </EduHeader>
+
+            <TimelineContainer>
+              {eduArray.map((item, index) => (
+                <TimelineItem key={index} variants={fadeUp}>
+                  <EduCard>
+                    {item.period && <DateBadge>{item.period}</DateBadge>}
+                    
+                    {/* TYPING ANIMATION IMPLEMENTED HERE */}
+                    <EduTitle>
+                      <FiBookOpen />
+                      <TypingEffect 
+                        text={item.degree} 
+                        delay={index * 1200} // Staggers the typing start for each card
+                        speed={40} 
+                      />
+                    </EduTitle>
+
+                    <EduSchool>{item.school}</EduSchool>
+                    {item.description && <EduDesc>{item.description}</EduDesc>}
+                  </EduCard>
+                </TimelineItem>
+              ))}
+            </TimelineContainer>
+          </RightColumn>
         </ContentGrid>
       </Container>
     </AboutContainer>
