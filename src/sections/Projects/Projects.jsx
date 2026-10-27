@@ -7,14 +7,14 @@ import ProjectCard from '../../components/ProjectCard/ProjectCard';
 const projectsData = [
   {
     id: 1,
-    title: "GetJob - Plateforme de Recherche d'Emploi",
-    description: "Une plateforme moderne de recherche d'emploi qui connecte les candidats aux entreprises. Simple, rapide et efficace.",
-    image: "getjob-project.png",
-    technologies: ["React", "Laravel", "Tailwind CSS", "MySQL"],
-    githubUrl: "https://github.com/BAHAEKENIK/get-job-platform",
-    liveUrl: "https://get-job-plateform.netlify.app/",
-    tags: ["laravel", "react", "fullstack"],
-    features: ["Recherche d'offres avancée", "Profils candidats et entreprises", "Système de candidatures en ligne"],
+    title: "Workflow Application - Gestion des Demandes",
+    description: "Un système web complet de gestion des demandes multi-étapes et d'approbation. Développé avec Spring Boot, Java 21 et MySQL, il digitalise les demandes internes, gère les validations et génère des rapports PDF.",
+    image: "workflow_hutchinson.jpg",
+    technologies: ["Java 21", "Spring Boot", "MySQL", "JWT", "OpenPDF", "Angular"],
+    githubUrl: "https://github.com/BAHAEKENIK/workflow-demande-hutchinson-intership-project-",
+    liveUrl: "#",
+    tags: ["java", "fullstack", "backend"],
+    features: ["Workflow multi-étapes", "Sécurisation par JWT", "Notifications par email", "Génération de PDF"],
     icon: "briefcase"
   },
   {
@@ -283,6 +283,7 @@ const Projects = () => {
 
   const filters = [
     { key: 'all', label: t('projects.filters.all') || 'Tous les Projets' },
+    { key: 'java', label: 'Java / Spring' },
     { key: 'laravel', label: t('projects.filters.laravel') || 'Laravel' },
     { key: 'react', label: t('projects.filters.react') || 'React' },
     { key: 'fullstack', label: t('projects.filters.fullstack') || 'Full Stack' }

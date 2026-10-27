@@ -160,7 +160,7 @@ const MobileMenuButton = styled(motion.button)`
 `;
 
 const Navigation = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -202,7 +202,8 @@ const Navigation = () => {
     }
   };
 
-  const cvFileName = i18n.language?.startsWith('fr') ? 'bahae_kenikssi_cv_fr.pdf' : 'bahae_kenikssi_cv_en.pdf';
+  // Updated to use the single PDF file name
+  const cvFileName = 'bahae_kenikssi.pdf';
 
   return (
     <Nav initial={{ y: -100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6 }}>
