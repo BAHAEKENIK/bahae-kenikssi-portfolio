@@ -31,15 +31,15 @@ const BackgroundLayer = styled.div`
   inset: 0;
   z-index: -3;
   background-image: 
-    linear-gradient(90deg, rgba(17,18,19,0.08) 0%, rgba(17,18,19,0.48) 35%, rgba(17,18,19,0.94) 65%, #111213 100%),
-    linear-gradient(0deg, rgba(8,9,9,0.08) 0%, rgba(8,9,9,0.35) 40%, #111213 95%),
+    linear-gradient(90deg, rgba(17,18,19,0.5) 0%, rgba(17,18,19,0.7) 35%, rgba(17,18,19,0.95) 65%, #111213 100%),
+    linear-gradient(0deg, rgba(8,9,9,0.4) 0%, rgba(8,9,9,0.5) 40%, #111213 95%),
     url('/assets/images/mountains-dark.jpg');
-  background-position: center, center, left bottom;
-  background-size: cover, cover, 78% auto;
+  background-position: center, center, center;
+  background-size: cover, cover, cover; /* CHANGED: Now covers the whole background */
   background-repeat: no-repeat;
 
   @media (max-width: 968px) {
-    background-size: cover, cover, 150% auto;
+    background-size: cover, cover, cover;
   }
 `;
 

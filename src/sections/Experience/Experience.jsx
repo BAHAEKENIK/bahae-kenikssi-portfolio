@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import styled from 'styled-components';
 import { FiCalendar, FiMapPin, FiExternalLink } from 'react-icons/fi';
 
@@ -56,6 +56,52 @@ const experienceData = [
 ];
 
 /* =========================================
+   CUSTOM CURSOR COMPONENT
+   ========================================= */
+const CustomCursor = () => {
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkPointer = window.matchMedia('(pointer: fine)');
+    setIsMobile(!checkPointer.matches);
+    const moveCursor = (e) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+    };
+    window.addEventListener('mousemove', moveCursor);
+    return () => window.removeEventListener('mousemove', moveCursor);
+  }, [cursorX, cursorY]);
+
+  if (isMobile) return null;
+
+  return (
+    <>
+      <motion.div
+        style={{
+          position: 'fixed', left: 0, top: 0, x: cursorXSpring, y: cursorYSpring,
+          translateX: '-50%', translateY: '-50%', width: '36px', height: '36px',
+          border: '1px solid rgba(217, 109, 66, 0.6)', borderRadius: '50%',
+          pointerEvents: 'none', zIndex: 9998, boxShadow: '0 0 15px rgba(217, 109, 66, 0.2)',
+        }}
+      />
+      <motion.div
+        style={{
+          position: 'fixed', left: 0, top: 0, x: cursorX, y: cursorY,
+          translateX: '-50%', translateY: '-50%', width: '6px', height: '6px',
+          backgroundColor: '#D96D42', borderRadius: '50%',
+          pointerEvents: 'none', zIndex: 9999,
+        }}
+      />
+    </>
+  );
+};
+
+/* =========================================
    STYLED COMPONENTS
    ========================================= */
 const ExperienceContainer = styled.section`
@@ -67,6 +113,7 @@ const ExperienceContainer = styled.section`
   color: #F0E8DC;
   font-family: 'Manrope', sans-serif;
   overflow: hidden;
+  cursor: default;
 
   @media (max-width: 768px) {
     padding: 5rem 1.5rem;
@@ -82,15 +129,15 @@ const BackgroundLayer = styled.div`
   inset: 0;
   z-index: -2;
   background-image: 
-    linear-gradient(90deg, rgba(17,18,19,0.1) 0%, rgba(17,18,19,0.85) 45%, #111213 75%),
-    linear-gradient(0deg, rgba(8,9,9,0.1) 0%, #111213 100%),
+    linear-gradient(90deg, rgba(17,18,19,0.5) 0%, rgba(17,18,19,0.7) 35%, rgba(17,18,19,0.95) 65%, #111213 100%),
+    linear-gradient(0deg, rgba(8,9,9,0.4) 0%, rgba(8,9,9,0.5) 40%, #111213 95%),
     url('/assets/images/mountains-dark2.jpg');
-  background-position: center, center, left bottom;
-  background-size: cover, cover, 65% auto;
+  background-position: center, center, center;
+  background-size: cover, cover, cover; /* CHANGED: Now covers the whole background */
   background-repeat: no-repeat;
 
   @media (max-width: 968px) {
-    background-size: cover, cover, 150% auto;
+    background-size: cover, cover, cover;
   }
 `;
 
@@ -420,6 +467,7 @@ const Experience = () => {
 
   return (
     <ExperienceContainer id="experience">
+      <CustomCursor />
       <BackgroundLayer />
       
       <Container>

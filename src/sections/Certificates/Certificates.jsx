@@ -174,15 +174,15 @@ const BackgroundLayer = styled.div`
   inset: 0;
   z-index: -2;
   background-image: 
-    linear-gradient(90deg, rgba(12,11,10,0.12) 0%, rgba(12,11,10,0.45) 28%, rgba(12,11,10,0.88) 55%, #0C0B0A 100%),
-    linear-gradient(0deg, rgba(12,11,10,0.1) 0%, rgba(12,11,10,0.45) 42%, #0C0B0A 100%),
+    linear-gradient(90deg, rgba(12,11,10,0.5) 0%, rgba(12,11,10,0.7) 35%, rgba(12,11,10,0.95) 65%, #0C0B0A 100%),
+    linear-gradient(0deg, rgba(12,11,10,0.4) 0%, rgba(12,11,10,0.5) 40%, #0C0B0A 95%),
     url('/assets/images/mountains-dark2.jpg');
-  background-size: cover, cover, auto 65%;
-  background-position: center, center, left bottom;
+  background-position: center, center, center;
+  background-size: cover, cover, cover; /* CHANGED: Now covers the whole background */
   background-repeat: no-repeat;
 
   @media (max-width: 968px) {
-    background-size: cover, cover, 150% auto;
+    background-size: cover, cover, cover;
   }
 `;
 
@@ -372,7 +372,6 @@ const ClearButton = styled.button`
 /* --- GRID --- */
 const CertificatesGrid = styled(motion.div)`
   display: grid;
-  /* Updated minmax to prevent overflow on tiny screens */
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: 24px;
   align-items: stretch;
